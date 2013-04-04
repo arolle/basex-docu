@@ -28,9 +28,9 @@ declare variable $_:REL-PATH2IMG := "../" || $_:WIKI-DUMP-IMG;
 (:~ Path to converted docbooks in db :)
 declare variable $_:DOCBOOKS-PATH := "docbooks/";
 
+
 (:~ Path to converted docbooks on hdd
  : note: has to end with a /
- : also defined in shellscript!
  :)
 declare variable $_:TMP-DOCBOOKS-CONV := "/tmp/bx-docbooks/";
 
@@ -40,9 +40,6 @@ declare variable $_:TOC-NAME := "Table of Contents";
 (:~ List of pages to include to docbook :)
 declare variable $_:PAGES-RELEVANT := _:open($_:LS-PAGES)//page[
     not(@title = $_:TOC-NAME) (: exclude Table of Contents from operations :)
-    (:and not(@title =
-          ("Main Page", "Shortcuts", "Storage Layout")
-        ):)
 ];
 
 
@@ -70,11 +67,3 @@ function _:open (
   db:open($_:WIKI-DB, $path)
 };
 
-
-(:
-TODO
-- Implement authentication to API (neccessaryif more than 500 articles available)
-  using first request to "?action=login&lgname=user&lgpassword=password"
-
-
-:)
