@@ -3,15 +3,18 @@
  :)
 import module namespace C = "basex-docu-conversion-config" at "config.xqm";
 
-(:~ name of service :)
-declare variable $WebDAV := "webdav";
-(: mountpoint of webdav :)
-declare variable $WebDAV-MOUNTPOINT := "/Volumes/" || $WebDAV || "/";
+(:~ mountpoint of webdav
+ : given as external variable, if not defined differently
+ :)
+declare variable $WebDAV-MOUNTPOINT as xs:string external := "/Volumes/webdav/";
 
 (: create directories :)
 ($WebDAV-MOUNTPOINT, $C:TMP-DOCBOOKS-CONV) ! file:create-dir(.),
 (: mount webdav :)
 proc:execute("mount_webdav", ("http://localhost:8984/webdav", $WebDAV-MOUNTPOINT)),
+
+(: wait until webdav is mounted :)
+prof:sleep(1000),
 
 (: convert each xhtml to docbook and place it to $C:TMP-DOCBOOKS-CONV :)
 let $basepath := ($WebDAV-MOUNTPOINT || $C:WIKI-DB || "/" || $C:WIKI-DUMP-PATH)
@@ -25,4 +28,9 @@ return
 (: unmount :)
 proc:execute("umount", ("-fv", $WebDAV-MOUNTPOINT)),
 
-C:logs(("converted each page from xhtml to docbook, placed those at ", $C:TMP-DOCBOOKS-CONV))
+(: delete mountpoint dir, if any :)
+try{
+  $WebDAV-MOUNTPOINT ! file:delete(.)
+} catch * {()},
+
+C:logs(("converted each page from xhtml to docbook, placed those at ", $C:TMP-DOCBOOKS-CONV, "; used webdav"))

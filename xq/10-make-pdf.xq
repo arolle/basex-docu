@@ -3,12 +3,10 @@
  :)
 import module namespace C = "basex-docu-conversion-config" at "config.xqm";
 
-(:~ name of service :)
-declare variable $WebDAV := "webdav";
 (:~ mountpoint of webdav
- : TODO make independant of OS -- at present for MacOS
+ : given as external variable, if not defined differently
  :)
-declare variable $WebDAV-MOUNTPOINT := "/Volumes/" || $WebDAV || "/";
+declare variable $WebDAV-MOUNTPOINT as xs:string external := "/Volumes/webdav/";
 
 (: create directories :)
 ($WebDAV-MOUNTPOINT, $C:TMP-DOCBOOKS-CONV) ! file:create-dir(.),
@@ -26,7 +24,7 @@ let $param := ("article   title",
   "part      title")
 return
   proc:system("fop", (
-    "-d", "-param", "generate.toc", string-join($param, out:nl()),
+    "-param", "generate.toc", string-join($param, out:nl()),
     "-xml", $master,
     "-xsl", "docbook.xsl",
     "-pdf", $C:TMP-DOCBOOKS-CONV || $C:DOC-MASTER || ".pdf"
@@ -34,5 +32,10 @@ return
 
 (: unmount :)
 proc:execute("umount", ("-fv", $WebDAV-MOUNTPOINT)),
+
+(: delete mountpoint dir, if any :)
+try{
+  $WebDAV-MOUNTPOINT ! file:delete(.)
+} catch * {()},
 
 C:logs(("converted master pdf to ", $C:TMP-DOCBOOKS-CONV, "; used webdav"))

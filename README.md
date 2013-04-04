@@ -48,7 +48,7 @@ Dependencies
 	e.g. http://www.dbdoclet.org/archives/herold-src-6.1.0-188.zip
 * Step 10: [Apache FOP](http://xmlgraphics.apache.org/fop/) is used to generate pdf from XML DocBook,
 	see http://archive.apache.org/dist/xmlgraphics/fop/binaries/
-* [Stylesheets](http://sourceforge.net/projects/docbook/files/docbook-xsl-ns/1.78.1/) or latest version
+* [Docbook Stylesheets (v1.78)](http://sourceforge.net/projects/docbook/files/docbook-xsl-ns/1.78.1/) or latest version
 	save this as `docbook-xsl-ns` folder
 
 
@@ -59,13 +59,13 @@ References
 * XSL Stylesheets for Conversion
     http://snapshots.docbook.org/ (referred from http://wiki.docbook.org/DocBookXslStylesheets )
     http://sourceforge.net/projects/docbook/files/OldFiles/
-* [Quick Start Guide](http://xmlgraphics.apache.org/fop/quickstartguide.html)
+* [Apache FOP - Quick Start Guide](http://xmlgraphics.apache.org/fop/quickstartguide.html)
 
 
 TODO
 ----
 
-- make step 10 OS independant
+- make step 10 work for Windows
 - abstract step 5 and 10 in xq; not using BaseX proc module
 - fix 'null' problem, i.e.
     db:open("basex-wiki","docbooks")//*[contains(.,"&lt;null")]
@@ -75,4 +75,5 @@ TODO
 - break br-tags -- deleted at present
 - table widths -- cells have same width at present as colwidth is deleted in 9
 - special chars, i.e. ⌘ is replaced by #
+- implement authentication to API (neccessary if more than 500 articles available)
 
