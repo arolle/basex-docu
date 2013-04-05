@@ -4,62 +4,68 @@
 import module namespace C = "basex-docu-conversion-config" at "config.xqm";
 declare option output:separator "\n";
 
+
+(: links that become empty :)
+(:for $href in C:open($C:DOCBOOKS-PATH)//@linkend[. = ("", "global_options", "Query_Strings")]
+let $grp := $href/parent::*/text() || $href/base-uri()
+group by $grp
+let $p := $href[1]/parent::*
+return <page docbook="{distinct-values($href/base-uri())}">{
+  C:open(
+    C:open($C:LS-PAGES)//page[
+      $C:WIKI-DB || "/" || @docbook = $href[1]/base-uri()
+    ]/@xml
+  )//*:a[. = $p/text()]
+}</page>:)
+
+(: Output (7)
+
+<page docbook="basex-wiki/docbooks/Commands.xml">
+  <a href="/wiki/User_Management#Command_Permissions" title="User Management">Permission</a>
+</page>
+<page docbook="basex-wiki/docbooks/Databases.xml">
+  <a href="/wiki/Valid_Names" title="Valid Names" class="mw-redirect">valid names constraints</a>
+</page>
+<page docbook="basex-wiki/docbooks/Options.xml">
+  <a href="#global_options">global options</a>
+</page>
+<page docbook="basex-wiki/docbooks/RESTXQ.xml">
+  <a href="#Query_Strings">query strings</a>
+  <a href="#Query_Strings">query strings</a>
+  <a href="#Query_Strings">query strings</a>
+</page>
+<page docbook="basex-wiki/docbooks/Serialization.xml">
+  <a href="/wiki/Startup_Options#BaseX" title="Startup Options">command-line</a>
+</page>
+<page docbook="basex-wiki/docbooks/Serialization.xml">
+  <a href="/wiki/REST#Query_Parameters" title="REST">REST</a>
+</page>
+<page docbook="basex-wiki/docbooks/User%20Management.xml">
+  <a href="/wiki/Valid_Names" title="Valid Names" class="mw-redirect">valid names constraints</a>
+</page>
+
+:)
+
+
+
+
 for $href in C:open($C:DOCBOOKS-PATH)//@linkend
 where empty(C:open($C:DOCBOOKS-PATH)//@xml:id[data() = $href])
 return <page docbook="{$href/base-uri()}">{$href/data()}</page>
 
-(: Output
+
+
+(: Output (10)
 
 <page docbook="basex-wiki/docbooks/Commands.xml"/>
-<page docbook="basex-wiki/docbooks/Commands.xml"/>
-<page docbook="basex-wiki/docbooks/Database%20Server.xml"/>
-<page docbook="basex-wiki/docbooks/Higher-Order%20Functions%20Module.xml">hof-iterate</page>
-<page docbook="basex-wiki/docbooks/Higher-Order%20Functions.xml"/>
-<page docbook="basex-wiki/docbooks/Indexes.xml"/>
+<page docbook="basex-wiki/docbooks/Databases.xml"/>
 <page docbook="basex-wiki/docbooks/Math%20Module.xml">math-uuid</page>
 <page docbook="basex-wiki/docbooks/Options.xml">global_options</page>
-<page docbook="basex-wiki/docbooks/Options.xml"/>
-<page docbook="basex-wiki/docbooks/Options.xml"/>
-<page docbook="basex-wiki/docbooks/Options.xml"/>
-<page docbook="basex-wiki/docbooks/Options.xml"/>
-<page docbook="basex-wiki/docbooks/Options.xml"/>
-<page docbook="basex-wiki/docbooks/Options.xml"/>
-<page docbook="basex-wiki/docbooks/Options.xml"/>
-<page docbook="basex-wiki/docbooks/Options.xml"/>
-<page docbook="basex-wiki/docbooks/Options.xml"/>
-<page docbook="basex-wiki/docbooks/Options.xml"/>
-<page docbook="basex-wiki/docbooks/Options.xml"/>
-<page docbook="basex-wiki/docbooks/Options.xml"/>
-<page docbook="basex-wiki/docbooks/Options.xml"/>
-<page docbook="basex-wiki/docbooks/Options.xml"/>
-<page docbook="basex-wiki/docbooks/Options.xml"/>
-<page docbook="basex-wiki/docbooks/Options.xml"/>
-<page docbook="basex-wiki/docbooks/Options.xml"/>
-<page docbook="basex-wiki/docbooks/REST.xml"/>
-<page docbook="basex-wiki/docbooks/RESTXQ.xml"/>
-<page docbook="basex-wiki/docbooks/RESTXQ.xml"/>
 <page docbook="basex-wiki/docbooks/RESTXQ.xml">Query_Strings</page>
 <page docbook="basex-wiki/docbooks/RESTXQ.xml">Query_Strings</page>
 <page docbook="basex-wiki/docbooks/RESTXQ.xml">Query_Strings</page>
-<page docbook="basex-wiki/docbooks/RESTXQ.xml"/>
 <page docbook="basex-wiki/docbooks/Serialization.xml"/>
 <page docbook="basex-wiki/docbooks/Serialization.xml"/>
-<page docbook="basex-wiki/docbooks/Serialization.xml"/>
-<page docbook="basex-wiki/docbooks/Serialization.xml"/>
-<page docbook="basex-wiki/docbooks/Server%20Protocol%3A%20Types.xml"/>
-<page docbook="basex-wiki/docbooks/Session%20Module.xml">BXSE0003</page>
-<page docbook="basex-wiki/docbooks/Sessions%20Module.xml">BXSE0003</page>
-<page docbook="basex-wiki/docbooks/Standalone%20Mode.xml"/>
-<page docbook="basex-wiki/docbooks/Standalone%20Mode.xml"/>
-<page docbook="basex-wiki/docbooks/Startup.xml"/>
-<page docbook="basex-wiki/docbooks/Startup.xml"/>
-<page docbook="basex-wiki/docbooks/Startup.xml"/>
-<page docbook="basex-wiki/docbooks/Startup.xml"/>
-<page docbook="basex-wiki/docbooks/Startup.xml"/>
-<page docbook="basex-wiki/docbooks/Startup.xml"/>
-<page docbook="basex-wiki/docbooks/Web%20Application.xml"/>
-<page docbook="basex-wiki/docbooks/WebDAV.xml"/>
-<page docbook="basex-wiki/docbooks/XQuery%20Update.xml"/>
-<page docbook="basex-wiki/docbooks/XQuery%20Update.xml"/>
+<page docbook="basex-wiki/docbooks/User%20Management.xml"/>
 
 :)

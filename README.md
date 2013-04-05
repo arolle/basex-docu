@@ -1,11 +1,11 @@
-Convert BaseX Wiki to PDF
-=========================
+Convert BaseX Wiki to DocBook and PDF
+=====================================
 
-Install the dependencies.
+Install the dependencies and adjust OS dependent vars in `xq/config.xqm`.
 
-Then run `./makedocu.sh` to convert BaseX documentation from web to pdf. The Conversion is done in 11 steps, as described in `meta/wiki2doc.pdf`.
+Then run `./makedocu.sh` to convert BaseX documentation from web to DocBook and PDF. The conversion is done in 11 steps, as described in `meta/wiki2doc.pdf`. A wiki article named `Table of Contents` defines the ordering of the pages (see `xq/config.xqm`).
 
-To convert other projects than BaseX adjust variables in `config.xqm`.
+To convert any Wiki adjust variables in `config.xqm`.
 
 Files in Project
 ----------------
@@ -44,10 +44,13 @@ Files in Project
 Dependencies
 ------------
 
+* BaseX with commands `basex`, `basexhttp` in `$PATH`
 * Step 5: [herold](http://www.dbdoclet.org/) is used for conversion of xhtml to XML DocBook,
-	e.g. http://www.dbdoclet.org/archives/herold-src-6.1.0-188.zip
+	e.g. http://www.dbdoclet.org/archives/herold-src-6.1.0-188.zip ;
+	make sure command `herold` is in `$PATH`
 * Step 10: [Apache FOP](http://xmlgraphics.apache.org/fop/) is used to generate pdf from XML DocBook,
-	see http://archive.apache.org/dist/xmlgraphics/fop/binaries/
+	see http://archive.apache.org/dist/xmlgraphics/fop/binaries/ ;
+	make sure command `fop` is in `$PATH`
 * [Docbook Stylesheets (v1.78)](http://sourceforge.net/projects/docbook/files/docbook-xsl-ns/1.78.1/) or latest version
 	save this as `docbook-xsl-ns` folder
 
@@ -58,18 +61,20 @@ References
 * FOP parameters (like TOC generator) at http://www.sagehill.net/docbookxsl/TOCcontrol.html#BriefSetToc
 * XSL Stylesheets for Conversion
     http://snapshots.docbook.org/ (referred from http://wiki.docbook.org/DocBookXslStylesheets )
-    http://sourceforge.net/projects/docbook/files/OldFiles/
 * [Apache FOP - Quick Start Guide](http://xmlgraphics.apache.org/fop/quickstartguide.html)
 
 
 TODO
 ----
 
+- hq images
 - make step 10 work for Windows
+	- how to mount webdav on cli on win?
 - abstract step 5 and 10 in xq; not using BaseX proc module
 - fix 'null' problem, i.e.
-    db:open("basex-wiki","docbooks")//*[contains(.,"&lt;null")]
-- fix those `xq/links-to-nowhere.xq`
+    db:open("basex-wiki","docbooks")/*[contains(.,"&amp;lt;null")]
+- fix those `xq/links-to-nowhere.xq` (9 left)
+	- Math Module: link "#math-uuid" to be removed from wiki points nowhere
 - add some colours
 - break longlonglong lines 
 - break br-tags -- deleted at present
