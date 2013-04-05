@@ -26,30 +26,45 @@ generate basex documentation
 
 EOF
 
-# start WebDAV service
-basexhttp&
+basexhttp stop      # stop any running service
+basexhttp&          # start WebDAV service
 
 # dirty hack: wait till launch of server
 reachable=0;
 while [ $reachable -eq 0 ]; do
-  curl -s http://localhost:8984/webdav  
+  curl -s http://localhost:8984/webdav
   if [ "$?" -eq 0 ];
   then
     reachable=1
   fi
 done
 
-basex 'db:drop("basex-wiki")' # remove old local wiki entries, if any
-basex xq/0-get-pages-list.xq
-basex xq/1-get-wiki-pages.xq
-basex xq/2-modify-page-content.xq
-basex xq/3-extract-images.xq
-basex xq/4-toc-to-docbook-master.xq
-basex -b"\$WebDAV-MOUNTPOINT=$WebDAV" xq/5-webdav2docbooks.xq
-#basex 'db:delete("basex-wiki","docbooks")'
+
+# step DEBUG
+# 0 no debug
+# 1 use local from db
+# 2 use already converted docbooks
+DEBUG=0
+
+if [ $DEBUG -lt 1 ]; then
+  basex 'try{db:drop("basex-wiki")} catch * {()}' # remove old local wiki entries, if any
+  basex xq/0-get-pages-list.xq
+  basex xq/1-get-wiki-pages.xq
+  basex xq/2-modify-page-content.xq
+  basex xq/3-extract-images.xq
+  basex xq/4-toc-to-docbook-master.xq
+fi
+if [ $DEBUG -lt 2 ]; then
+  basex -b"\$WebDAV-MOUNTPOINT=$WebDAV" xq/5-webdav2docbooks.xq
+fi
+basex 'try{db:delete("basex-wiki","docbooks")} catch * {()}'
 basex xq/6-db-add-docbook.xq
 basex xq/7-care-for-link-ids.xq
 basex xq/8-care-for-linkends.xq
 basex xq/9-modify-docbooks.xq
 basex -b"\$WebDAV-MOUNTPOINT=$WebDAV" xq/10-make-pdf.xq
-basexhttpstop
+basexhttp stop
+
+if [ $DEBUG -gt 0 ]; then
+  open /tmp/bx-docbooks/master-docbook.xml.pdf
+fi
