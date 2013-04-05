@@ -11,22 +11,27 @@ declare variable $WebDAV-MOUNTPOINT as xs:string external := "/Volumes/webdav/";
 (: create directories :)
 ($WebDAV-MOUNTPOINT, $C:TMP-DOCBOOKS-CONV) ! file:create-dir(.),
 (: mount webdav :)
-proc:execute("mount_webdav", ("http://localhost:8984/webdav", $WebDAV-MOUNTPOINT)),
+C:execute("mount_webdav", ("http://localhost:8984/webdav", $WebDAV-MOUNTPOINT)),
 
 (: wait until webdav is mounted :)
-prof:sleep(1000),
+(:prof:sleep(1000),:)
 
-(: convert each xhtml to docbook and place it to $C:TMP-DOCBOOKS-CONV :)
+(: convert all non-redirects from xhtml to docbook
+ : and place them at $C:TMP-DOCBOOKS-CONV
+ :)
 let $basepath := ($WebDAV-MOUNTPOINT || $C:WIKI-DB || "/" || $C:WIKI-DUMP-PATH)
 for $name in file:list($basepath, false(), "*.xml")
+where
+  substring($name, 1, string-length($name)-4) (: name w/o extension :)
+  = $C:PAGES-RELEVANT[@docbook]/@title-enc (: non-redirects :)
 return
-  proc:system("herold",
+  C:execute("herold",
     ((:"--docbook-encoding", "uft-8", "--html-encoding", "utf-8",:)
     "-i", $basepath || $name, "-o", $C:TMP-DOCBOOKS-CONV || $name)
   ),
 
 (: unmount :)
-proc:execute("umount", ("-fv", $WebDAV-MOUNTPOINT)),
+C:execute("umount", ("-fv", $WebDAV-MOUNTPOINT)),
 
 (: delete mountpoint dir, if any :)
 try{

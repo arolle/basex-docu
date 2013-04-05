@@ -5,7 +5,7 @@ Install the dependencies.
 
 Then run `./makedocu.sh` to convert BaseX documentation from web to pdf. The Conversion is done in 11 steps, as described in `meta/wiki2doc.pdf`.
 
-To convert other projects as BaseX adjust variables in `config.xqm`.
+To convert other projects than BaseX adjust variables in `config.xqm`.
 
 Files in Project
 ----------------
