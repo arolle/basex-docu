@@ -17,7 +17,7 @@ let $dup-ids := (
   return <e>{attribute count {count($x)}, $x[1]/data()}</e>
 )[@count > 1]
 
-for $page in $C:PAGES-RELEVANT[@docbook]
+for $page in $C:PAGES-RELEVANT
 let $c := C:open($page/@docbook)
 
 (: assurance for no duplicate link ids :)
@@ -37,11 +37,12 @@ return (
 (: replace redirection links by real link :)
 for $red in $C:PAGES-RELEVANT[string-length(@redirect) > 0]/@title-slug
 for $link in db:open($C:WIKI-DB, $C:DOCBOOKS-PATH)//*:link[
-  starts-with(@xlink:href, "/wiki/" || $red || "#") (: refers to subsection of page :)
+  (: refers to subsection of page; necessary due to similar names :)
+  starts-with(@xlink:href, "/wiki/" || $red || "#")
   or @xlink:href = "/wiki/" || $red (: refers to page :)
 ]
-(: $hash contains anything after # in url; 6 = string-length("/wiki/") :)
-let $hash := substring($link/@xlink:href, 6 + string-length($red))
+
+let $hash := substring-after($link/@xlink:href, "#") (: anything after # in url :)
 return
   (replace value of node $link/@xlink:href
   with $red/parent::node()/@redirect || $hash),
