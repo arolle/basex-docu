@@ -31,7 +31,19 @@ return (
   as first into $c
 ),
 
-delete node C:open($C:DOCBOOKS-PATH)//*:colspec/@*:colwidth,
+delete node C:open($C:DOCBOOKS-PATH)//*:colspec/@*:colwidth[
+  ends-with(., "*")
+  (:and xs:integer(substring(., 1, string-length(.)-1)) gt 9 (: not delete values below 10 :):)
+],
+
+(: rename 100% to 80* :)
+for $x in C:open($C:DOCBOOKS-PATH)//*:colspec/@*:colwidth[. = "100%"]
+return
+  replace value of node $x with "80*",
+
+
+(: delete some empty elements :)
+delete node C:open($C:DOCBOOKS-PATH)//*:index,
 
 db:output(
   C:log("modified semantics in docbooks")

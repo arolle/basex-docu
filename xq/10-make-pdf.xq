@@ -11,7 +11,7 @@ declare variable $WebDAV-MOUNTPOINT as xs:string external := "/Volumes/webdav/";
 (: create directories :)
 ($WebDAV-MOUNTPOINT, $C:TMP-DOCBOOKS-CONV) ! file:create-dir(.),
 (: mount webdav :)
-proc:execute("mount_webdav", ("http://localhost:8984/webdav", $WebDAV-MOUNTPOINT)),
+C:execute("mount_webdav", ("http://localhost:8984/webdav", $WebDAV-MOUNTPOINT)),
 
 let $master := $WebDAV-MOUNTPOINT || $C:WIKI-DB || "/" || $C:DOC-MASTER
 (:
@@ -23,7 +23,7 @@ let $param := ("article   title",
   "chapter   title",
   "part      title")
 return
-  proc:system("fop", (
+  C:execute("fop", (
     "-param", "generate.toc", string-join($param, out:nl()),
     "-xml", $master,
     "-xsl", "docbook.xsl",
@@ -31,7 +31,7 @@ return
   )),
 
 (: unmount :)
-proc:execute("umount", ("-fv", $WebDAV-MOUNTPOINT)),
+C:execute("umount", ("-fv", $WebDAV-MOUNTPOINT)),
 
 (: delete mountpoint dir, if any :)
 try{

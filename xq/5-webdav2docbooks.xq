@@ -23,7 +23,7 @@ let $basepath := ($WebDAV-MOUNTPOINT || $C:WIKI-DB || "/" || $C:WIKI-DUMP-PATH)
 for $name in file:list($basepath, false(), "*.xml")
 where
   substring($name, 1, string-length($name)-4) (: name w/o extension :)
-  = $C:PAGES-RELEVANT[@docbook]/@title-enc (: non-redirects :)
+  = $C:PAGES-RELEVANT/@title-enc
 return
   C:execute("herold",
     ((:"--docbook-encoding", "uft-8", "--html-encoding", "utf-8",:)

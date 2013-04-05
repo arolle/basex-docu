@@ -29,8 +29,6 @@ then (
   (: change redirect attributes and so :)
   replace value of node $page/@redirect
           with $contents/*/*/text()[1],
-  replace value of node $page/@no-render
-          with "no-render",
   delete node $page/@*[name() = $C:NO-RENDER-DEL-ATTR]
 )
 (: add page (no redirection) :)

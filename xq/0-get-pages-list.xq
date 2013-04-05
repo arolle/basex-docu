@@ -14,7 +14,6 @@ db:create(
         attribute {"title-enc"} {fn:encode-for-uri(.)}, (: uri encoded title :)
         attribute {"title"} {.}, (: title plain :)
         attribute {"redirect"} {""}, (: set later for pages that redirect :)
-        attribute {"no-render"} {""}, (: set later for pages that shall not be considered :)
         attribute {"title-slug"} {fn:encode-for-uri(replace(., ' ', '_'))}, (: title with underscores :)
         attribute {"xml"} {$C:WIKI-DUMP-PATH || fn:encode-for-uri(.) || '.xml'}, (: uri encoded title :)
         attribute {"docbook"} {$C:DOCBOOKS-PATH || fn:encode-for-uri(.) || '.xml'} (: uri encoded title :)
