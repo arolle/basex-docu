@@ -17,8 +17,10 @@ return (
   (: remove edit links :)
   delete node $doc//*:span[@class = "editsection" (:and count(parent::*//*:a) > 1:)],
             
-  (: no hr nor br equivalent in docbook :)
-  delete node ($doc//br, $doc//hr),
+  (: no hr, no br equivalent in docbook
+   : remove empty code or dl tags
+   :)
+  delete node ($doc//br, $doc//hr, $doc//(code, dl)[string-length(.) = 0]),
   (: no empty dd nodes accepted in docbook :)
   delete node $doc//dd[count(*) = 0],
   

@@ -71,8 +71,6 @@ TODO
 - make step 10 work for Windows
 	- how to mount webdav on cli on win?
 - abstract step 5 and 10 in xq; not using BaseX proc module
-- fix 'null' problem, i.e.
-    db:open("basex-wiki","docbooks")/*[contains(.,"&amp;lt;null")]
 - fix those `xq/links-to-nowhere.xq` (9 left)
 	- Math Module: link "#math-uuid" to be removed from wiki points nowhere
 - add some colours
