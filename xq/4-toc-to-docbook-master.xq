@@ -8,12 +8,14 @@ import module namespace C = "basex-docu-conversion-config" at "config.xqm";
 declare namespace xi = "http://www.w3.org/2001/XInclude";
 declare option db:chop "false";
 
+(: delete if exists :)
+if (db:exists($C:WIKI-DB, $C:DOC-MASTER))
+then db:delete($C:WIKI-DB, $C:DOC-MASTER)
+else (),
+
+(: add new docbook-master :)
 let $toc := C:open($C:LS-PAGES)//page[@title = $C:TOC-NAME]
-return if (db:exists($C:WIKI-DB, $C:DOC-MASTER))
-then db:output(
-    C:logs(("docbook already exists in ", $C:WIKI-DB,  " at path ", $C:DOC-MASTER))
-  )
-else (
+return (
 db:add($C:WIKI-DB,
  document {
     <?xml-model href="http://docbook.org/xml/5.0/rng/docbookxi.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>,
