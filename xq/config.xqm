@@ -85,3 +85,15 @@ function _:open (
   db:open($_:WIKI-DB, $path)
 };
 
+
+(:~
+ : open documents by name
+ : for developing purpose only
+ : @param   name
+ : @return  document where path contains $name
+ :)
+declare function _:open-by-name (
+  $name as xs:string
+) as document-node()* {
+  db:list($_:WIKI-DB)[contains(., $name)] ! _:open(.)
+};
