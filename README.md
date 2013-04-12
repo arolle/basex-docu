@@ -40,7 +40,7 @@ Files in Project
         ├── 8-care-for-linkends.xq
         ├── 9-modify-docbooks.xq
         ├── config.xqm                      project configuration
-        └── links-to-nowhere.xq             see TODO
+        └── links-to-nowhere.xq             for analysis: check for deadlinks in docbook
 
 
 Dependencies
@@ -74,7 +74,6 @@ TODO
 - make step 10 work for Windows
 	- how to mount webdav on cli on win?
 - abstract step 5 and 10 in xq; not using BaseX proc module
-- fix those `xq/links-to-nowhere.xq` (4 left)
 - add some colour
 - break longlonglong lines 
 - break br-tags -- deleted at present

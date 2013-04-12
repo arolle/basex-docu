@@ -17,7 +17,6 @@ let $token := tokenize($new-ref, "#"),
     $hash := $token[2], (: url hash :)
     (: search for a id that fits to this links aim :)
     $link-src := $C:PAGES-RELEVANT[
-      (:TODO what if referenced to redirection :)
       @title-slug = $token[1]
     ]/@docbook
 return if (not(empty($link-src)))
@@ -27,6 +26,7 @@ then
     let $linkid := C:open($link-src)//@xml:id[
         . = string-join($token) (: subsection of a page with non-unique id (thus id is preset by @title-slug) :)
         or . = replace($token[2],':','-') (: remove special chars as in "db:create" :)
+        or . = replace($token[2],' ','_') (: if reffered to link e.g. 'Valid Names' :)
       ][1] (: order is by relevance - thus take first :)
     return (
       rename node $link/@xlink:href as QName("http://docbook.org/ns/docbook", "linkend"),
