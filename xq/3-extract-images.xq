@@ -8,13 +8,16 @@ import module namespace  functx = "http://www.functx.com" ;
 
 (:~ get all image sources :)
 
-for $img in functx:distinct-nodes(C:open($C:LS-PAGES)//page/@xml ! C:open(.)//img/@src)
-let $name := functx:substring-after-last($img, "/")
+for $extimg in C:open($C:LS-IMAGES)//img
+for $img in C:open($C:WIKI-DUMP-PATH)//img/@src[
+  ends-with(., "-" || $extimg/@name)
+  or ends-with(., "/" || $extimg/@name)
+]
+let $name := $extimg/@name
 return (
-  (: save image from web, if not exists :)
   if (db:exists($C:WIKI-DB, $C:WIKI-DUMP-IMG || $name))
   then ()
-  else db:store($C:WIKI-DB, $C:WIKI-DUMP-IMG || $name, fetch:binary($C:WIKI-BASEURL || $img)),
+  else db:store($C:WIKI-DB, $C:WIKI-DUMP-IMG || $name, fetch:binary($extimg/@url)),
 
   (: set new @href for img/parent::a :)
   let $c := $img/parent::img/parent::a[not(starts-with(@href, $C:WIKI-BASEURL))]/@href

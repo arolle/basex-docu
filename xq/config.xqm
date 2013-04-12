@@ -7,6 +7,8 @@ declare variable $_:DS := file:dir-separator();
 declare variable $_:WIKI-DB := "basex-wiki";
 (:~ List of Wiki Pages :)
 declare variable $_:LS-PAGES := "list-of-wiki-pages.xml";
+(:~ List of Wiki Images :)
+declare variable $_:LS-IMAGES := "list-of-images.xml";
 
 (:~ master docbook :)
 declare variable $_:DOC-MASTER := "master-docbook.xml";
