@@ -21,15 +21,27 @@ let $pages := element pages {
 let $images := element images {
   doc($C:BX-API || "action=query&amp;list=allimages&amp;format=xml&amp;ailimit=500")//img
 }
-return db:create(
-  $C:WIKI-DB,
-  ($images, $pages),
-  ($C:LS-IMAGES, $C:LS-PAGES)
-),
+return
+  if (db:exists($C:WIKI-DB))
+  then (
+    db:replace($C:WIKI-DB, $C:LS-PAGES, $pages),
+    db:replace($C:WIKI-DB, $C:LS-IMAGES, $images),
+    db:output(
+      C:logs(("modified in ", $C:WIKI-DB, " the list of wiki pages at path ", $C:LS-PAGES, " and list of wiki images at path ", $C:LS-IMAGES))
+    )
+  )
+  else (
+    db:create(
+      $C:WIKI-DB,
+      ($images, $pages),
+      ($C:LS-IMAGES, $C:LS-PAGES)
+    ),
+    db:output(
+      C:logs(("created db ", $C:WIKI-DB, " with list of wiki pages at path ", $C:LS-PAGES, " and list of wiki images at path ", $C:LS-IMAGES))
+    )
+  )
 
-db:output(
-  C:logs(("created db ", $C:WIKI-DB, " with list of wiki pages at path ", $C:LS-PAGES, " and list of wiki images at path ", $C:LS-IMAGES))
-)
+
 
 (: TODO extract meta data
 

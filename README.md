@@ -7,6 +7,8 @@ Then run `./makedocu.sh` to convert BaseX documentation from web to DocBook and 
 
 To convert any Wiki adjust variables in `config.xqm`.
 
+If the software was run once, another run will update files. That is, images are kept and content of wiki pages gets replaced from web. 
+
 Files in Project
 ----------------
 
@@ -67,13 +69,13 @@ References
 TODO
 ----
 
-- hq images
+- syntax highlighting
+- incremental updating (i.e. only load changed articles on second run)
 - make step 10 work for Windows
 	- how to mount webdav on cli on win?
 - abstract step 5 and 10 in xq; not using BaseX proc module
-- fix those `xq/links-to-nowhere.xq` (9 left)
-	- Math Module: link "#math-uuid" to be removed from wiki points nowhere
-- add some colours
+- fix those `xq/links-to-nowhere.xq` (4 left)
+- add some colour
 - break longlonglong lines 
 - break br-tags -- deleted at present
 - table widths -- cells have same width at present as colwidth is deleted in 9

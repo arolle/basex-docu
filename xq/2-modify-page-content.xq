@@ -6,8 +6,6 @@ import module namespace C = "basex-docu-conversion-config" at "config.xqm";
 
 declare option db:chop "false";
 
-(:for $page in _:open($C:LS-PAGES)//page
-for $doc in _:open($page/@xml):)
 let $doc := db:open($C:WIKI-DB)
 return (
 (:  (: change relative edit link, if not yet changed :)
