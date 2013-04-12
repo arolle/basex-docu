@@ -4,7 +4,7 @@
  :)
 
 import module namespace C = "basex-docu-conversion-config" at "config.xqm";
-import module namespace  functx = "http://www.functx.com" ;
+import module namespace  functx = "http://www.functx.com";
 
 (:~ get all image sources :)
 

@@ -32,3 +32,4 @@ HTTPLOCAL = false
 STOPPORT = 8985
 
 # Local Options
+CHOP=false

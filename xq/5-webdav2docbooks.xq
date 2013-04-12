@@ -13,9 +13,6 @@ declare variable $WebDAV-MOUNTPOINT as xs:string external := "/Volumes/webdav/";
 (: mount webdav :)
 C:execute("mount_webdav", ("http://localhost:8984/webdav", $WebDAV-MOUNTPOINT)),
 
-(: wait until webdav is mounted :)
-(:prof:sleep(1000),:)
-
 (: convert all non-redirects from xhtml to docbook
  : and place them at $C:TMP-DOCBOOKS-CONV
  :)

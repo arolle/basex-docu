@@ -5,7 +5,6 @@
 import module namespace C = "basex-docu-conversion-config" at "config.xqm";
 
 declare namespace xlink = "http://www.w3.org/1999/xlink";
-declare option db:chop "false";
 
 
 for $page in $C:PAGES-RELEVANT

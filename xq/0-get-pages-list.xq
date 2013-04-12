@@ -2,7 +2,6 @@
  : Init, and gets all pages from the MediaWikiAPI
  :)
 import module namespace C = "basex-docu-conversion-config" at "config.xqm";
-declare option db:chop "false";
 
 let $pages := element pages {
   let $doc := doc($C:BX-API || "action=query&amp;list=allpages&amp;aplimit=500&amp;format=xml&amp;meta=siteinfo")/api/query

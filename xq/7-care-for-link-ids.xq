@@ -7,7 +7,6 @@
 import module namespace C = "basex-docu-conversion-config" at "config.xqm";
 
 declare namespace xlink = "http://www.w3.org/1999/xlink";
-declare option db:chop "false";
 
 (: assurance for no duplicate link ids :)
 let $dup-ids := (

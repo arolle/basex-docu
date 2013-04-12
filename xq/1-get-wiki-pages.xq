@@ -4,7 +4,6 @@
  : extract redirects immediately
  :)
 import module namespace C = "basex-docu-conversion-config" at "config.xqm";
-declare option db:chop "false";
 
 (: delete articles that already exist :)
 if (empty(db:list($C:WIKI-DB, $C:WIKI-DUMP-PATH)))
