@@ -12,7 +12,8 @@ declare variable $_:LS-IMAGES := "list-of-images.xml";
 
 (:~ master docbook :)
 declare variable $_:DOC-MASTER := "master-docbook.xml";
-
+(:~ all-in-one master :)
+declare variable $_:MASTER-ALL := "basex-full-documentation.xml";
 
 (:~ Attributes to delete from 'no-render' item in $_:LS-PAGES :)
 declare variable $_:NO-RENDER-DEL-ATTR := ("xml", "html", "docbook");

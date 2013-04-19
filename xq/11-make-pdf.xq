@@ -25,6 +25,8 @@ let $param := ("article   title",
 return
   C:execute("fop", (
     "-param", "generate.toc", string-join($param, out:nl()),
+    "-param", "highlight.source", "1",
+    "-param", "highlight.default.language", "xml",
     "-xml", $master,
     "-xsl", "docbook.xsl",
     "-pdf", $C:TMP-DOCBOOKS-CONV || $C:DOC-MASTER || ".pdf"

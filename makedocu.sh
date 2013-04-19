@@ -90,9 +90,10 @@ if [ $DEBUG -lt 3 ]; then
   basex xq/8-care-for-linkends.xq
 # basex xq/highlighting.xq
   basex xq/9-modify-docbooks.xq
+  basex -b"\$WebDAV-MOUNTPOINT=$WebDAV" xq/10-generate-all-in-one-docbook.xq
 fi
 if [ $PDFGEN -eq 1 ]; then
-  basex -b"\$WebDAV-MOUNTPOINT=$WebDAV" xq/10-make-pdf.xq
+  basex -b"\$WebDAV-MOUNTPOINT=$WebDAV" xq/11-make-pdf.xq
 fi
 basexhttp stop
 
