@@ -5,7 +5,7 @@ Install the dependencies and adjust OS dependent vars in `xq/config.xqm`.
 
 Then run `./makedocu.sh` to convert BaseX documentation from web to DocBook and PDF. The conversion is done in 11 steps, as described in `meta/wiki2doc.pdf`. A wiki article named `Table of Contents` defines the ordering of the pages (see `xq/config.xqm`).
 
-To convert any Wiki adjust variables in `config.xqm`.
+To convert any Wiki adjust variables in `xq/config.xqm`.
 
 If the software was run once, another run will update files. That is, images are kept and content of wiki pages gets replaced from web. 
 
@@ -30,7 +30,8 @@ Files in Project
     └── xq
         ├── 0-get-pages-list.xq
         ├── 1-get-wiki-pages.xq
-        ├── 10-make-pdf.xq
+        ├── 10-generate-all-in-one-docbook.xq
+        ├── 11-make-pdf.xq
         ├── 2-modify-page-content.xq
         ├── 3-extract-images.xq
         ├── 4-toc-to-docbook-master.xq

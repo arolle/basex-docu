@@ -6,7 +6,6 @@
 import module namespace C = "basex-docu-conversion-config" at "config.xqm";
 
 declare namespace xi = "http://www.w3.org/2001/XInclude";
-declare option db:chop "false";
 
 (: delete if exists :)
 if (db:exists($C:WIKI-DB, $C:DOC-MASTER))
