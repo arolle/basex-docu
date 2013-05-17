@@ -21,7 +21,7 @@ db:add($C:WIKI-DB,
     <?xml-model href="http://docbook.org/xml/5.0/rng/docbook.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>,
     <book xmlns="http://docbook.org/ns/docbook"
         xmlns:xi="http://www.w3.org/2001/XInclude"
-        xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0">
+        xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" lang="en">
       <info>
         <title>BaseX Documentation</title>
         <subtitle>
