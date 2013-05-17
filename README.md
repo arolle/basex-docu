@@ -1,37 +1,41 @@
 Convert BaseX Wiki to DocBook and PDF
 =====================================
 
-Install the dependencies and adjust OS dependent vars in `xq/config.xqm`.
+Install the dependencies running  `./install.sh`. Adjust varables in
+`xq/config.xqm` if desired, e.g. change temp directory.
 
-Then run `./makedocu.sh` to convert BaseX documentation from web to DocBook and PDF. The conversion is done in 11 steps, as described in `meta/wiki2doc.pdf`. A wiki article named `Table of Contents` defines the ordering of the pages (see `xq/config.xqm`).
+Then run `./makedocu.sh` to convert BaseX documentation from web to DocBook and
+PDF. The conversion is done in 12 steps, as described in `meta/wiki2doc.pdf`. A
+wiki article named `Table of Contents` defines the ordering of the pages
+(see `xq/config.xqm`).
 
-To convert any Wiki adjust variables in `xq/config.xqm`.
-
-If the software was run once, another run will update files. That is, images are kept and content of wiki pages gets replaced from web. 
+If the software was run once, another run will update files. That is, images
+are kept and content of wiki pages gets replaced from web. 
 
 Files in Project
 ----------------
 
     basex-docu
     ├── .basex                              BaseX config
-    ├── README.md                           this file
-    ├── WEB-INF                             WebDAV service instructions
     ├── basex.svg                           BaseX Logo
     ├── basex-wiki.log                      log file (ignored in git)
-    ├── data                                database folder
-    ├── docbook-xsl-ns                      docbook stylesheets, see Dependencies
+    ├── data                                database folder (ignored in git)
+    ├── docbook-xsl-ns-1.78.1               docbook stylesheets, see Dependencies
     ├── docbook.xsl                         includes styles, some customisations
+    ├── fop-1.1                             see dependencies
+    ├── herold                              see dependencies
+    ├── install.sh                          installs dependencies
     ├── makedocu.sh                         file to make the documentation
     ├── meta
     │   ├── master-docbook.xml.pdf          pdf sample
     │   ├── wiki2docbook.key                program workflow raw
     │   └── wiki2docbook.pdf                program workflow
+    ├── README.md                           this file
     ├── repo                                used modules (only functx at present)
+    ├── tmp                                 temp directory (ignored in git)
     └── xq
         ├── 0-get-pages-list.xq
         ├── 1-get-wiki-pages.xq
-        ├── 10-generate-all-in-one-docbook.xq
-        ├── 11-make-pdf.xq
         ├── 2-modify-page-content.xq
         ├── 3-extract-images.xq
         ├── 4-toc-to-docbook-master.xq
@@ -40,22 +44,27 @@ Files in Project
         ├── 7-care-for-link-ids.xq
         ├── 8-care-for-linkends.xq
         ├── 9-modify-docbooks.xq
+        ├── 10-generate-all-in-one-docbook.xq
+        ├── 11-make-pdf.xq
         ├── config.xqm                      project configuration
+        ├── export.bxs                      exports database to tmp
         └── links-to-nowhere.xq             for analysis: check for deadlinks in docbook
 
 
 Dependencies
 ------------
+All dependencies (except BaseX) can be installed using the install
+script `./install.sh`.
 
 * BaseX with commands `basex`, `basexhttp` in `$PATH`
 * Step 5: [herold](http://www.dbdoclet.org/) is used for conversion of xhtml to XML DocBook,
 	e.g. http://www.dbdoclet.org/archives/herold-src-6.1.0-188.zip ;
-	make sure command `herold` is in `$PATH`
+  tied to 5-conv2docbooks.xq
 * Step 10: [Apache FOP](http://xmlgraphics.apache.org/fop/) is used to generate pdf from XML DocBook,
 	see http://archive.apache.org/dist/xmlgraphics/fop/binaries/ ;
-	make sure command `fop` is in `$PATH`
-* [Docbook Stylesheets (v1.78)](http://sourceforge.net/projects/docbook/files/docbook-xsl-ns/1.78.1/) or latest version
-	save this as `docbook-xsl-ns` folder
+  tied to 11-make-pdf.xq
+* [Docbook Stylesheets (v1.78)](http://sourceforge.net/projects/docbook/files/docbook-xsl-ns/1.78.1/) or latest version;
+  tied to docbook.xsl
 
 
 References
@@ -72,8 +81,6 @@ TODO
 
 - syntax highlighting
 - incremental updating (i.e. only load changed articles on second run)
-- make step 10 work for Windows
-	- how to mount webdav on cli on win?
 - abstract step 5 and 10 in xq; not using BaseX proc module
 - add some colour
 - break longlonglong lines 

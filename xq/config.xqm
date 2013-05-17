@@ -1,7 +1,20 @@
 module namespace _ = "basex-docu-conversion-config";
 
+(:~ absolute path to this project :)
+declare variable $_:ABS-PATH := (static-base-uri() ! file:dir-name(.) ! file:dir-name(.)) || $_:DS;
+
+(: PATHES on HDD :)
+(:~ general tmp path :)
+declare variable $_:TMP := "tmp" || $_:DS;
+
+(:~ path to export db to :)
+declare variable $_:EXPORT-PATH := $_:TMP || "basex-wiki-export" || $_:DS;
+
+
 (:~ abbreviation for slash, or whatever dir separator :)
 declare variable $_:DS := file:dir-separator();
+
+
 
 (:~ database name :)
 declare variable $_:WIKI-DB := "basex-wiki";
@@ -24,6 +37,9 @@ declare variable $_:WIKI-BASEURL := "http://docs.basex.org";
 (:~ URI to MediaWiki API :)
 declare variable $_:BX-API := $_:WIKI-BASEURL || "/api.php?";
 
+
+
+(: PATHES in DB :)
 (:~ Path to local exports :)
 declare variable $_:WIKI-DUMP-PATH := "wikihtml" || $_:DS;
 
@@ -35,10 +51,6 @@ declare variable $_:REL-PATH2IMG := ".." || $_:DS || $_:WIKI-DUMP-IMG;
 declare variable $_:DOCBOOKS-PATH := "docbooks" || $_:DS;
 
 
-(:~ Path to converted docbooks on hdd
- : note: has to end with a dir separator
- :)
-declare variable $_:TMP-DOCBOOKS-CONV := $_:DS || "tmp" || $_:DS || "bx-docbooks" || $_:DS;
 
 (:~ use this wiki-page to declare how to group the items in the final docbook :)
 declare variable $_:TOC-NAME := "Table of Contents";
@@ -71,7 +83,7 @@ declare function _:execute(
   return
     if ($res/code = 0)
     then ()
-    else ($cmd || string-join($cmd, " ") ||  " yields an error " || out:nl(), $res)
+    else ($cmd || " yields an error " || out:nl(), $res)
 };
 
 (:~
@@ -97,4 +109,21 @@ declare function _:open-by-name (
   $name as xs:string
 ) as document-node()* {
   db:list($_:WIKI-DB)[contains(., $name)] ! _:open(.)
+};
+
+
+(:~
+ : generates a string separated by : of certain items
+ : located at given path
+ : @param   $p path to look at
+ : @param   $glob using glob syntax to match files
+ : @return  colon separated path with items specified by $glob
+ :)
+declare function _:to-PATH(
+  $p as xs:string,
+  $glob as xs:string
+) as xs:string {
+  string-join(
+    file:list($p, false(), $glob) ! ($p || $_:DS || .)
+  , file:path-separator())
 };

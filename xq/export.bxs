@@ -1,0 +1,9 @@
+<commands>
+  <!--
+    references to config.xqm
+
+     $_:WIKI-DB and $_:EXPORT-PATH
+  -->
+  <open name="basex-wiki"/>
+  <export path="tmp/basex-wiki-export/"/>
+</commands>

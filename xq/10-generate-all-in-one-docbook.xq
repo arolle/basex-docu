@@ -5,12 +5,6 @@
 
 import module namespace C = "basex-docu-conversion-config" at "config.xqm";
 
-(:~ mountpoint of webdav
- : given as external variable, if not defined differently
- :)
-declare variable $WebDAV-MOUNTPOINT as xs:string external := "/Volumes/webdav/";
-
-
 if (db:exists($C:WIKI-DB, $C:MASTER-ALL))
 then db:delete($C:WIKI-DB, $C:MASTER-ALL)
 else (),
@@ -23,17 +17,7 @@ let $master :=
     let $path := $x/@href ! replace(., "%25", "%")
     return
       replace node $x
-      with ( (: correct image pathes :)
-        copy $c := C:open($path)
-        modify (
-          for $x in $c//@fileref[starts-with(., $C:REL-PATH2IMG)]
-          let $path := substring-after($x, $C:REL-PATH2IMG)
-          return
-            replace value of node $x
-            with $WebDAV-MOUNTPOINT || $C:WIKI-DB || $C:DS || $C:WIKI-DUMP-IMG || $path
-        )
-        return $c
-      )
+      with C:open($path)
   )
   return $c
 

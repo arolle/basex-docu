@@ -5,18 +5,15 @@
 # user	6m6.035s
 # sys	0m31.988s
 
-if [ $# -lt 1 ]; then
+if [[ $1 = "-h" || $1 = "-help" ]]; then
   cat << EOF
-  Usage: `basename $0` <WebDAV-MountPoint> [<Debug> [<No-PDF-generation>]]
-
-    <WebDAV-MountPoint>
-      specify mountpoint of webdav service; may exist
+  Usage: `basename $0` [<Debug> [<No-PDF-generation>]]
 
     <Debug>
       optional parameter to specify a mode.
       higher the integer debug value means more previously
       generated xhtml and docbook is used.
-      0   no debug (same as not specified)
+      0   no debug -- default
       1   uses local xhtml sources of wiki-pages instead of
           loading from wiki. requires run once before in mode '0'.
       2   use existing *.docbook from temp path.
@@ -26,14 +23,11 @@ if [ $# -lt 1 ]; then
 
     <No-PDF-generation>
       only if <Debug> was specified, optional
-      1   no pdf generated, default
+      1   no pdf generated -- default
       0   pdf gets generated
 
 EOF
   exit 1
-else
-  # will overwrite $WebDAV-MOUNTPOINT in #5 and #10
-  WebDAV="$1"
 fi
 
 # Debug mode, default 0
@@ -52,25 +46,10 @@ cat << EOF
 
 generate basex documentation
   logfile:         `cd $BX_DOCU && pwd`/basex-wiki.log
-  WebDAV path:     $WebDAV
   debug mode:      $DEBUG
   pdf generation:  $PDFGEN
 
 EOF
-
-basexhttp stop      # stop any running service
-basexhttp&          # start WebDAV service
-
-# dirty hack: wait till launch of server
-reachable=0;
-while [ $reachable -eq 0 ]; do
-  curl -s http://localhost:8984/webdav
-  if [ "$?" -eq 0 ];
-  then
-    reachable=1
-  fi
-done
-
 
 
 if [ $DEBUG -lt 1 ]; then
@@ -81,18 +60,18 @@ if [ $DEBUG -lt 1 ]; then
   basex xq/4-toc-to-docbook-master.xq
 fi
 if [ $DEBUG -lt 2 ]; then
-  basex -b"\$WebDAV-MOUNTPOINT=$WebDAV" xq/5-webdav2docbooks.xq
+  basex xq/export.bxs # export db
+  basex xq/5-conv*.xq # convert export
 fi
 if [ $DEBUG -lt 3 ]; then
-  basex 'try{db:delete("basex-wiki","docbooks")} catch * {()}'
   basex xq/6-db-add-docbook.xq
   basex xq/7-care-for-link-ids.xq
   basex xq/8-care-for-linkends.xq
   basex xq/9-modify-docbooks.xq
-  basex -b"\$WebDAV-MOUNTPOINT=$WebDAV" xq/10-generate-all-in-one-docbook.xq
+  basex xq/10-generate-all-in-one-docbook.xq
 fi
 if [ $PDFGEN -eq 1 ]; then
-  basex -b"\$WebDAV-MOUNTPOINT=$WebDAV" xq/11-make-pdf.xq
+  basex xq/export.bxs # export db
+  basex xq/11-make-pdf.xq
 fi
-basexhttp stop
 
