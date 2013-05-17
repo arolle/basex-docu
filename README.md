@@ -5,12 +5,18 @@ Install the dependencies running  `./install.sh`. Adjust varables in
 `xq/config.xqm` if desired, e.g. change temp directory.
 
 Then run `./makedocu.sh` to convert BaseX documentation from web to DocBook and
-PDF. The conversion is done in 12 steps, as described in `meta/wiki2doc.pdf`. A
+PDF. The same can be achieved by running the BaseX command script `makedocu.bxs`.
+The conversion is done in 12 steps, as described in `meta/wiki2doc.pdf`. A
 wiki article named `Table of Contents` defines the ordering of the pages
 (see `xq/config.xqm`).
 
 If the software was run once, another run will update files. That is, images
 are kept and content of wiki pages gets replaced from web. 
+
+For the external Java processes there is memory of 1024 MB assigned. Change these
+(if necessary) in step 5 and 11.
+
+
 
 Files in Project
 ----------------
@@ -25,6 +31,7 @@ Files in Project
     ├── fop-1.1                             see dependencies
     ├── herold                              see dependencies
     ├── install.sh                          installs dependencies
+    ├── makedocu.bxs                        basex command script to generate the documentation
     ├── makedocu.sh                         file to make the documentation
     ├── meta
     │   ├── master-docbook.xml.pdf          pdf sample
@@ -39,7 +46,7 @@ Files in Project
         ├── 2-modify-page-content.xq
         ├── 3-extract-images.xq
         ├── 4-toc-to-docbook-master.xq
-        ├── 5-webdav2docbooks.xq
+        ├── 5-conv2docbooks.xq
         ├── 6-db-add-docbook.xq
         ├── 7-care-for-link-ids.xq
         ├── 8-care-for-linkends.xq
@@ -60,7 +67,7 @@ script `./install.sh`.
 * Step 5: [herold](http://www.dbdoclet.org/) is used for conversion of xhtml to XML DocBook,
 	e.g. http://www.dbdoclet.org/archives/herold-src-6.1.0-188.zip ;
   tied to 5-conv2docbooks.xq
-* Step 10: [Apache FOP](http://xmlgraphics.apache.org/fop/) is used to generate pdf from XML DocBook,
+* Step 11: [Apache FOP](http://xmlgraphics.apache.org/fop/) is used to generate pdf from XML DocBook,
 	see http://archive.apache.org/dist/xmlgraphics/fop/binaries/ ;
   tied to 11-make-pdf.xq
 * [Docbook Stylesheets (v1.78)](http://sourceforge.net/projects/docbook/files/docbook-xsl-ns/1.78.1/) or latest version;
@@ -81,7 +88,7 @@ TODO
 
 - syntax highlighting
 - incremental updating (i.e. only load changed articles on second run)
-- abstract step 5 and 10 in xq; not using BaseX proc module
+- abstract step 5 and 11 in xq; not using BaseX proc module
 - add some colour
 - break longlonglong lines 
 - break br-tags -- deleted at present
