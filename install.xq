@@ -1,6 +1,8 @@
+(:~
+ : Installs all dependencies
+ : loads and extracts zip files
+ :)
 import module namespace C = "basex-docu-conversion-config" at "xq/config.xqm";
-
-declare option output:separator "\n";
 
 
 (: all sources and their path/name where they shall end up :)
@@ -20,7 +22,7 @@ let $deps := (
 )
 
 
-for $m in $deps[3]
+for $m in $deps
 let $name := $C:TMP || $m("name") || ".archive",
     (:~ load archive; use existing, if any :)
     $is-loaded := file:exists($name),
@@ -29,7 +31,12 @@ let $name := $C:TMP || $m("name") || ".archive",
       else fetch:binary($m("url")) ! (., file:write-binary($name,.)),
     $items := archive:entries($archive)
 return (
-  "", $name,
-  distinct-values($items ! file:dir-name(.))[position() = 1 to 10]
+  (: extract all archive entries to $m("name") :)
+  $items ! file:write-binary(
+    replace(., "(^.*?)" || $C:DS, $m("name") || $C:DS) ! (., file:create-dir(file:dir-name(.))),
+    archive:extract-binary($archive, .)
+  ),
+
+  C:logs(("install: extracted ", $name, " to .", $C:DS, $m("name"), $C:DS))
 )
 

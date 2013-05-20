@@ -30,7 +30,7 @@ Files in Project
     ├── docbook.xsl                         includes styles, some customisations
     ├── fop-1.1                             see dependencies
     ├── herold                              see dependencies
-    ├── install.sh                          installs dependencies
+    ├── install.xq                          installs dependencies
     ├── makedocu.bxs                        basex command script to generate the documentation
     ├── makedocu.sh                         file to make the documentation
     ├── meta

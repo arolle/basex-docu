@@ -11,12 +11,12 @@ let $param := ("article   title",
   "book      toc,title",
   "chapter   title",
   "part      title"),
-    $classpath := C:to-PATH($C:ABS-PATH || "fop-1.1" || $C:DS || "build", "*.jar")
+    $classpath := C:to-PATH($C:ABS-PATH || "fop" || $C:DS || "build", "*.jar")
       || file:path-separator() ||
-      C:to-PATH($C:ABS-PATH || "fop-1.1" || $C:DS || "lib", "*.jar")
+      C:to-PATH($C:ABS-PATH || "fop" || $C:DS || "lib", "*.jar")
 return
   C:execute("java", (
-    (: compare with fop-1.1/fop :)
+    (: compare with ./fop/fop :)
     "-Xmx1024m",
     "-Djava.awt.headless=true",
     "-classpath", $classpath,

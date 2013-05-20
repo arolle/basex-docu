@@ -8,7 +8,7 @@ import module namespace C = "basex-docu-conversion-config" at "config.xqm";
  :)
 let $basepath := $C:EXPORT-PATH || $C:WIKI-DUMP-PATH,
     $docb-export := ($C:EXPORT-PATH || $C:DOCBOOKS-PATH)
-      ! (., file:create-dir(.))[1] (: create dir :)
+      ! (., file:create-dir(.))
 return
 
 (

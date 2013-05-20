@@ -1,9 +1,9 @@
 data
 .basex*
 basex-wiki.log
-docbook-xsl-ns-1.78.1
+docbook-xsl
 herold
-fop-1.1
+fop
 meta/master-docbook.xml.pdf
 xslthl
 docbooks
