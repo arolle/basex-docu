@@ -14,11 +14,9 @@ return (
   delete node $doc//*:span[@class = "editsection" (:and count(parent::*//*:a) > 1:)],
             
   (: no hr, no br equivalent in docbook
-   : remove empty code or dl tags
+   : remove all empty tags
    :)
-  delete node ($doc//br, $doc//hr, $doc//(code, dl)[string-length(.) = 0]),
-  (: no empty dd nodes accepted in docbook :)
-  delete node $doc//dd[count(*) = 0],
+  delete node ($doc//(br, hr, code, dl, dd, tr, td)[string-length(.) = 0]),
   
   (: delete table of contents :)
   delete node $doc//table[@id = "toc"],

@@ -26,7 +26,6 @@ return
     "-param", "generate.toc", string-join($param, out:nl()),
     "-param", "highlight.source", "1",
     "-param", "highlight.default.language", "xml",
-    "-param", "l10n.gentext.language", "en",
     "-xml", $C:EXPORT-PATH || $C:DOC-MASTER, 
     "-xsl", "docbook.xsl",
     "-pdf", $C:TMP || $C:DOC-MASTER || ".pdf"

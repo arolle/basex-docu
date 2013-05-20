@@ -86,7 +86,7 @@ References
 TODO
 ----
 
-
+- finalize xq install script
 - syntax highlighting
 - incremental updating (i.e. only load changed articles on second run)
 - abstract step 5 and 11 in xq; not using BaseX proc module
