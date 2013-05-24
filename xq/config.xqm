@@ -11,8 +11,8 @@ declare variable $_:TMP := "tmp" || $_:DS;
 declare variable $_:EXPORT-PATH := $_:TMP || "basex-wiki-export" || $_:DS;
 
 
-(:~ abbreviation for slash, or whatever dir separator :)
-declare variable $_:DS := file:dir-separator();
+(:~ abbreviation for dir separator, / works for win aswell :)
+declare variable $_:DS := "/"; (: file:dir-separator(); :)
 
 
 
