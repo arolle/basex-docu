@@ -21,7 +21,7 @@ return (
   insert node element para {
     element link {
       attribute xlink:href {$C:WIKI-BASEURL || "/index.php?title=" ||  $page/@title-enc },
-      "Read this entry online in the BaseX Wiki"
+      "Read this entry online in the BaseX Wiki."
     }
   } after $c/*:info[1],
   

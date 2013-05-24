@@ -1,11 +1,11 @@
 Convert BaseX Wiki to DocBook and PDF
 =====================================
 
-Install the dependencies running  `./install.sh`. Adjust varables in
+Install the dependencies running  `./install.xq`. Adjust varables in
 `xq/config.xqm` if desired, e.g. change temp directory.
 
-Then run `./makedocu.sh` to convert BaseX documentation from web to DocBook and
-PDF. The same can be achieved by running the BaseX command script `makedocu.bxs`.
+Then run `basex makedocu.bxs` to convert BaseX documentation from web to DocBook and
+PDF.
 The conversion is done in 12 steps, as described in `meta/wiki2doc.pdf`. A
 wiki article named `Table of Contents` defines the ordering of the pages
 (see `xq/config.xqm`).
@@ -26,9 +26,9 @@ Files in Project
     ├── basex.svg                           BaseX Logo
     ├── basex-wiki.log                      log file (ignored in git)
     ├── data                                database folder (ignored in git)
-    ├── docbook-xsl-ns-1.78.1               docbook stylesheets, see Dependencies
+    ├── docbook-xsl                         docbook stylesheets, see Dependencies
     ├── docbook.xsl                         includes styles, some customisations
-    ├── fop-1.1                             see dependencies
+    ├── fop                                 see dependencies
     ├── herold                              see dependencies
     ├── install.xq                          installs dependencies
     ├── makedocu.bxs                        basex command script to generate the documentation
@@ -61,7 +61,7 @@ Files in Project
 Dependencies
 ------------
 All dependencies (except BaseX) can be installed using the install
-script `./install.sh`.
+script `./install.xq`.
 
 * BaseX with commands `basex` in `$PATH`
 * Step 5: [herold](http://www.dbdoclet.org/) is used for conversion of xhtml to XML DocBook,

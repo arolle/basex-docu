@@ -19,6 +19,10 @@
 <!--xsl:param name="paper.type">A4</xsl:param-->
 <xsl:param name="body.start.indent">0pt</xsl:param>
 
+<!-- hide link address after external links -->
+<xsl:param name="ulink.show" select="0" />
+
+
 <!-- change fontsize for headings -->
 <xsl:attribute-set name="section.title.level1.properties">
   <xsl:attribute name="font-size">
