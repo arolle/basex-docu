@@ -86,13 +86,10 @@ References
 TODO
 ----
 
-- finalize xq install script
 - syntax highlighting
 - incremental updating (i.e. only load changed articles on second run)
-- abstract step 5 and 11 in xq; not using BaseX proc module
 - styling
   - add some colour
-  - smaller font-size
 - break longlonglong lines 
 - break br-tags -- deleted at present
 - table widths -- cells have same width at present as colwidth is deleted in 9
