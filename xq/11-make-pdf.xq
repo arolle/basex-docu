@@ -11,9 +11,9 @@ let $param := ("article   title",
   "book      toc,title",
   "chapter   title",
   "part      title"),
-    $classpath := C:to-PATH($C:ABS-PATH || "fop" || $C:DS || "build", "*.jar")
+    $classpath := C:to-PATH($C:ABS-PATH || "fop/build", "*.jar")
       || file:path-separator() ||
-      C:to-PATH($C:ABS-PATH || "fop" || $C:DS || "lib", "*.jar")
+      C:to-PATH($C:ABS-PATH || "fop/lib", "*.jar")
 return
   C:execute("java", (
     (: compare with ./fop/fop :)

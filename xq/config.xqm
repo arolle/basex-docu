@@ -1,20 +1,15 @@
 module namespace _ = "basex-docu-conversion-config";
 
 (:~ absolute path to this project :)
-declare variable $_:ABS-PATH := (static-base-uri() ! file:dir-name(.) ! file:dir-name(.)) || $_:DS;
+declare variable $_:ABS-PATH := (static-base-uri() ! file:dir-name(.) ! file:dir-name(.)) || '/';
 
-(: PATHES on HDD :)
+(: PATHS on HDD :)
+
 (:~ general tmp path :)
-declare variable $_:TMP := "tmp" || $_:DS;
+declare variable $_:TMP := "tmp/";
 
 (:~ path to export db to :)
-declare variable $_:EXPORT-PATH := $_:TMP || "basex-wiki-export" || $_:DS;
-
-
-(:~ abbreviation for dir separator, / works for win aswell :)
-declare variable $_:DS := "/"; (: file:dir-separator(); :)
-
-
+declare variable $_:EXPORT-PATH := $_:TMP || "basex-wiki-export/";
 
 (:~ database name :)
 declare variable $_:WIKI-DB := "basex-wiki";
@@ -41,16 +36,14 @@ declare variable $_:BX-API := $_:WIKI-BASEURL || "/api.php?";
 
 (: PATHES in DB :)
 (:~ Path to local exports :)
-declare variable $_:WIKI-DUMP-PATH := "wikihtml" || $_:DS;
+declare variable $_:WIKI-DUMP-PATH := "wikihtml/";
 
 (:~ Path to images of local exports :)
-declare variable $_:WIKI-DUMP-IMG := "wikiimg" || $_:DS;
-declare variable $_:REL-PATH2IMG := ".." || $_:DS || $_:WIKI-DUMP-IMG;
+declare variable $_:WIKI-DUMP-IMG := "wikiimg/";
+declare variable $_:REL-PATH2IMG := "../" || $_:WIKI-DUMP-IMG;
 
 (:~ Path to converted docbooks in db :)
-declare variable $_:DOCBOOKS-PATH := "docbooks" || $_:DS;
-
-
+declare variable $_:DOCBOOKS-PATH := "docbooks/";
 
 (:~ use this wiki-page to declare how to group the items in the final docbook :)
 declare variable $_:TOC-NAME := "Table of Contents";
@@ -60,7 +53,6 @@ declare variable $_:PAGES-RELEVANT := _:open($_:LS-PAGES)//page[
   not(@title = $_:TOC-NAME) (: exclude Table of Contents from operations :)
   and @docbook (: exludes redirects :)
 ];
-
 
 (:~
  : logs some text to a logfile
@@ -124,6 +116,6 @@ declare function _:to-PATH(
   $glob as xs:string
 ) as xs:string {
   string-join(
-    file:list($p, false(), $glob) ! ($p || $_:DS || .)
+    file:list($p, false(), $glob) ! ($p || '/' || .)
   , file:path-separator())
 };

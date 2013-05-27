@@ -1,7 +1,7 @@
 Convert BaseX Wiki to DocBook and PDF
 =====================================
 
-Install the dependencies running  `./install.xq`. Adjust varables in
+Install the dependencies via `basex install.xq`. Adjust varables in
 `xq/config.xqm` if desired, e.g. change temp directory.
 
 Then run `basex makedocu.bxs` to convert BaseX documentation from web to DocBook and
@@ -15,7 +15,6 @@ are kept and content of wiki pages gets replaced from web.
 
 For the external Java processes there is memory of 1024 MB assigned. Change these
 (if necessary) in step 5 and 11.
-
 
 
 Files in Project
@@ -60,10 +59,10 @@ Files in Project
 
 Dependencies
 ------------
-All dependencies (except BaseX) can be installed using the install
-script `./install.xq`.
+All dependencies (except BaseX) can be installed using the XQuery install
+script `install.xq`.
 
-* BaseX with commands `basex` in `$PATH`
+* BaseX with command `basex` in `$PATH`
 * Step 5: [herold](http://www.dbdoclet.org/) is used for conversion of xhtml to XML DocBook,
 	e.g. http://www.dbdoclet.org/archives/herold-src-6.1.0-188.zip ;
   tied to 5-conv2docbooks.xq

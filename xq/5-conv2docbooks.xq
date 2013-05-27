@@ -22,8 +22,8 @@ return
     (: compare with herold/bin/herold :)
     "-Xmx1024m",
     "-Dconsole.lineWidth=42",
-    "-Dherold.home=" || $C:ABS-PATH || $C:DS || "herold",
-    "-jar", $C:ABS-PATH || "herold" || $C:DS || "jars" || $C:DS || "herold.jar",
+    "-Dherold.home=" || $C:ABS-PATH || "herold",
+    "-jar", $C:ABS-PATH || "herold/jars/herold.jar",
 
     (: herold args :)
     (:"--docbook-encoding", "uft-8", "--html-encoding", "utf-8",:)
