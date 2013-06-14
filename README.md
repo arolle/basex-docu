@@ -9,6 +9,9 @@ PDF.
 The conversion is done in 12 steps, as described in `meta/wiki2doc.pdf`. A
 wiki article named `Table of Contents` defines the ordering of the pages
 (see `xq/config.xqm`).
+Only articles linked from this table of contents will be included in the
+final PDF/DocBook.
+
 
 If the software was run once, another run will update files. That is, images
 are kept and content of wiki pages gets replaced from web. 
@@ -31,13 +34,11 @@ Files in Project
     ├── herold                              see dependencies
     ├── install.xq                          installs dependencies
     ├── makedocu.bxs                        basex command script to generate the documentation
-    ├── makedocu.sh                         file to make the documentation
     ├── meta
     │   ├── master-docbook.xml.pdf          pdf sample
     │   ├── wiki2docbook.key                program workflow raw
     │   └── wiki2docbook.pdf                program workflow
     ├── README.md                           this file
-    ├── repo                                used modules (only functx at present)
     ├── tmp                                 temp directory (ignored in git)
     └── xq
         ├── 0-get-pages-list.xq
@@ -54,7 +55,8 @@ Files in Project
         ├── 11-make-pdf.xq
         ├── config.xqm                      project configuration
         ├── export.bxs                      exports database to tmp
-        └── links-to-nowhere.xq             for analysis: check for deadlinks in docbook
+        ├── links-to-nowhere.xq             for analysis: check for deadlinks in docbook
+        └── list-missing-articles.xq        for analysis: existing articles that won't appear in the docbook
 
 
 Dependencies
@@ -91,7 +93,5 @@ TODO
   - add some colour
 - break longlonglong lines 
 - break br-tags -- deleted at present
-- table widths -- cells have same width at present as colwidth is deleted in 9
 - special chars, i.e. ⌘ is replaced by #
 - implement authentication to API (neccessary if more than 500 articles available)
-
