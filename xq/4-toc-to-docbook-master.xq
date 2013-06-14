@@ -46,16 +46,11 @@ db:add($C:WIKI-DB,
         (: transform all includes :)
         let $body := (C:open( $toc/@xml )//*:body)[1]
         for $x in $body//*:h3
-        let $items := $x/following-sibling::*[1][name() = "ul"]/*:li/*:a
+        let $items := $x/following-sibling::*[1][name() = "ul"]/*:li/*:a[starts-with(@*:href, "/wiki/")]
         let $link := $x//*:a[starts-with(@*:href, "/wiki/")]
         let $res := $C:PAGES-RELEVANT[
-          @title = (
-            if ($link)
-            then $link
-            else (),
-            $items
-          )/text()
-        ]
+          @title = ( $link, $items )/@*:title
+        ] 
         ! element xi:include {
           attribute href { @docbook ! replace(., "%", "%25") }, (: from docbook master to includes :)
           <xi:fallback>
