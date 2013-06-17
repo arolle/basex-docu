@@ -45,5 +45,5 @@ return
 
 
 db:output(
-  C:logs(("unified link-ids in relevant docbooks in db ", $C:WIKI-DB, " at path ", $C:DOCBOOKS-PATH))
+  C:logs(static-base-uri(), ("unified link-ids in relevant docbooks in db ", $C:WIKI-DB, " at path ", $C:DOCBOOKS-PATH))
 )

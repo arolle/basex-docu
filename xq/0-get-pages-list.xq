@@ -26,7 +26,7 @@ return
     db:replace($C:WIKI-DB, $C:LS-PAGES, $pages),
     db:replace($C:WIKI-DB, $C:LS-IMAGES, $images),
     db:output(
-      C:logs(("modified in ", $C:WIKI-DB, " the list of wiki pages at path ", $C:LS-PAGES, " and list of wiki images at path ", $C:LS-IMAGES))
+      C:logs(static-base-uri(), ("modified in ", $C:WIKI-DB, " the list of wiki pages at path ", $C:LS-PAGES, " and list of wiki images at path ", $C:LS-IMAGES))
     )
   )
   else (
@@ -36,7 +36,7 @@ return
       ($C:LS-IMAGES, $C:LS-PAGES)
     ),
     db:output(
-      C:logs(("created db ", $C:WIKI-DB, " with list of wiki pages at path ", $C:LS-PAGES, " and list of wiki images at path ", $C:LS-IMAGES))
+      C:logs(static-base-uri(), ("created db ", $C:WIKI-DB, " with list of wiki pages at path ", $C:LS-PAGES, " and list of wiki images at path ", $C:LS-IMAGES))
     )
   )
 

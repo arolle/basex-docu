@@ -31,4 +31,4 @@ return
     "-pdf", $C:TMP || $C:DOC-MASTER || ".pdf"
   )),
 
-C:logs(("converted master pdf to ", $C:TMP, $C:DOC-MASTER, ".pdf"))
+C:logs(static-base-uri(), ("converted master pdf to ", $C:TMP, $C:DOC-MASTER, ".pdf"))

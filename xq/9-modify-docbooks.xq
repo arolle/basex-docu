@@ -45,5 +45,5 @@ return
 delete node C:open($C:DOCBOOKS-PATH)//*:index,
 
 db:output(
-  C:log("modified semantics in docbooks")
+  C:log(static-base-uri(), "modified semantics in docbooks")
 )

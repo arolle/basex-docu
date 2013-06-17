@@ -25,5 +25,5 @@ return
   db:add($C:WIKI-DB, $master, $C:MASTER-ALL),
 
 db:output(
-  C:logs(("generated all-in-one in DB ", $C:WIKI-DB, " master at ", $C:MASTER-ALL))
+  C:logs(static-base-uri(), ("generated all-in-one in DB ", $C:WIKI-DB, " master at ", $C:MASTER-ALL))
 )

@@ -72,6 +72,6 @@ db:add($C:WIKI-DB,
   ), (: end db:add() :)
 
   db:output(
-    C:logs(("wrote docbook to ", $C:DOC-MASTER, " in db ", $C:WIKI-DB))
+    C:logs(static-base-uri(), ("wrote docbook to ", $C:DOC-MASTER, " in db ", $C:WIKI-DB))
   )
 ) (: end else :)

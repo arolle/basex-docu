@@ -45,5 +45,5 @@ else db:add(
 ),
 
 db:output(
-  C:logs(("loaded all wiki pages to ", $C:WIKI-DB, " at path ", $C:WIKI-DUMP-PATH, "; added flag for 'redirect' pages"))
+  C:logs(static-base-uri(), ("loaded all wiki pages to ", $C:WIKI-DB, " at path ", $C:WIKI-DUMP-PATH, "; added flag for 'redirect' pages"))
 )

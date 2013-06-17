@@ -39,5 +39,5 @@ return
   else db:add($C:WIKI-DB, "basex.svg", $logo-src),
 
 db:output(
-  C:log("loaded images; connected xhtml/img@src with image locations")
+  C:log(static-base-uri(), "loaded images; connected xhtml/img@src with image locations")
 )

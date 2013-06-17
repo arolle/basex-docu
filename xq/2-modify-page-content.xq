@@ -25,5 +25,5 @@ return (
 ),
 
 db:output(
-  C:log("modified html of all wiki pages")
+  C:log(static-base-uri(), "modified html of all wiki pages")
 )

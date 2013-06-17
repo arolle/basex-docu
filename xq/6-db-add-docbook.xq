@@ -16,5 +16,8 @@ return db:delete($C:WIKI-DB, $x),
 db:add($C:WIKI-DB, $C:EXPORT-PATH || $C:DOCBOOKS-PATH, $C:DOCBOOKS-PATH),
 
 db:output(
-  C:logs(("added converted docbooks from ", $C:EXPORT-PATH || $C:DOCBOOKS-PATH, " on hdd to db ", $C:WIKI-DB, " at path ", $C:DOCBOOKS-PATH))
+  C:logs(static-base-uri(),
+    ("added converted docbooks from ", $C:EXPORT-PATH, $C:DOCBOOKS-PATH,
+    " on hdd to db ", $C:WIKI-DB, " at path ", $C:DOCBOOKS-PATH)
+  )
 )

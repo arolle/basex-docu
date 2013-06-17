@@ -1,7 +1,7 @@
 module namespace _ = "basex-docu-conversion-config";
 
 (:~ absolute path to this project :)
-declare variable $_:ABS-PATH := (static-base-uri() ! file:dir-name(.) ! file:dir-name(.)) || '/';
+declare variable $_:ABS-PATH := (static-base-uri() ! file:dir-name(.) ! file:dir-name(.));
 
 (: PATHS on HDD :)
 
@@ -57,12 +57,23 @@ declare variable $_:PAGES-RELEVANT := _:open($_:LS-PAGES)//page[
 (:~
  : logs some text to a logfile
  :)
-declare function _:log($text as xs:string) {
-  file:append( $_:WIKI-DB || ".log", current-date() || out:tab() ||current-time() || out:tab() || $text || out:nl())
+declare function _:log(
+  $id as xs:string,
+  $text as xs:string
+) {
+  file:append(
+    $_:WIKI-DB || ".log", current-dateTime() || out:tab()
+    || substring-after($id, "file:" || $_:ABS-PATH)
+    || out:tab() || $text || out:nl()
+  )
 };
-declare function _:logs($texts as item()*) {
-  _:log( string-join( $texts ! string() ) )
+declare function _:logs(
+  $id as xs:string,
+  $texts as item()*
+) {
+  _:log($id, string-join( $texts ))
 };
+
 
 (:~
  : show proc:execute() stuff, in case of error remains silent otherwise

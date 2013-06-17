@@ -31,6 +31,6 @@ return
     )
   ),
 
-C:logs(("converted each page from xhtml (in ", $basepath, ") to docbook, placed those at ", $docb-export))
+C:logs(static-base-uri(), ("converted each page from xhtml (in ", $basepath, ") to docbook, placed those at ", $docb-export))
 
 )

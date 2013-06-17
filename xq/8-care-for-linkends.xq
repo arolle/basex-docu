@@ -45,5 +45,5 @@ else (: no link in document found :)
 ,
 
 db:output(
-  C:log("adjusted aims for links in relevant docbooks")
+  C:log(static-base-uri(), "adjusted aims for links in relevant docbooks")
 )

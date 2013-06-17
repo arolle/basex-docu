@@ -42,5 +42,5 @@ return
       file:create-dir(replace($path, "/[^/]*$", "")),
       file:write-binary($path, $contents[$p])
     ),
-    C:logs(("install: extracted ", $name, " to ", $dep("name"), '/'))
+    C:logs(static-base-uri(), ("extracted ", $name, " to ", $dep("name"), '/'))
   )
