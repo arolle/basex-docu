@@ -111,7 +111,7 @@ function _:open (
 declare function _:open-by-name (
   $name as xs:string
 ) as document-node()* {
-  db:list($_:WIKI-DB)[contains(., $name)] ! _:open(.)
+  db:list($_:WIKI-DB)[contains(lower-case(.), lower-case($name))] ! _:open(.)
 };
 
 
