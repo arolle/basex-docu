@@ -12,17 +12,14 @@ else db:delete($C:WIKI-DB, $C:WIKI-DUMP-PATH),
 
 
 (: fetch the new wiki articles from web :)
-let $limit := 500, (: no of pages to retreive :)
-    $uri := $C:BX-API || "action=query&amp;list=allpages&amp;aplimit=" || $limit || "&amp;format=xml"
 for $page in C:open($C:LS-PAGES)//page
 
 (: request page content :)
-let $req :=
-  http:send-request(
-    <http:request method="get" />,
-    $C:BX-API || "action=parse&amp;format=xml&amp;page=" || $page/@title-enc || "&amp;prop=text|images|displaytitle|links|externallinks"
-  )[2]
-  
+let $req := fetch:text(
+  $C:BX-API || "action=parse&amp;format=xml&amp;page=" ||
+  $page/@title-enc || "&amp;prop=text|images|displaytitle|links|externallinks"
+) ! fn:parse-xml(.)
+
 (: parse html :)
 let $contents := $req/api/parse/text/text()/string()
   ! ((# db:parser "html" #){

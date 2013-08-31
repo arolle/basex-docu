@@ -4,7 +4,9 @@
 import module namespace C = "basex-docu-conversion-config" at "config.xqm";
 
 let $pages := element pages {
-  let $doc := doc($C:BX-API || "action=query&amp;list=allpages&amp;aplimit=500&amp;format=xml&amp;meta=siteinfo")/api/query
+  let $doc := fetch:text($C:BX-API
+    || "action=query&amp;list=allpages&amp;aplimit=500&amp;format=xml&amp;meta=siteinfo"
+  ) ! parse-xml(.)/api/query
   return $doc/allpages/p/@title/data()
   ! element page {
     . ! (
@@ -18,7 +20,8 @@ let $pages := element pages {
   }
 }
 let $images := element images {
-  doc($C:BX-API || "action=query&amp;list=allimages&amp;format=xml&amp;ailimit=500")//img
+  fetch:text($C:BX-API || "action=query&amp;list=allimages&amp;format=xml&amp;ailimit=500")
+    ! fn:parse-xml(.)//img
 }
 return
   if (db:exists($C:WIKI-DB))
@@ -39,15 +42,3 @@ return
       C:logs(static-base-uri(), ("created db ", $C:WIKI-DB, " with list of wiki pages at path ", $C:LS-PAGES, " and list of wiki images at path ", $C:LS-IMAGES))
     )
   )
-
-
-
-(: TODO extract meta data
-
-sitename
-articlepath
-script
-
-
-<general mainpage="Main Page" base="http://docs.basex.org/wiki/Main_Page" sitename="BaseX Documentation" generator="MediaWiki 1.16.0" phpversion="5.3.19" phpsapi="cgi-fcgi" dbtype="mysql" dbversion="5.5.28-log" case="first-letter" rights="Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)" lang="en" fallback8bitEncoding="windows-1252" writeapi="" timezone="UTC" timeoffset="0" articlepath="/wiki/$1" scriptpath="" script="/index.php" variantarticlepath="" server="http://docs.basex.org" wikiid="db249056_271" time="2013-03-15T15:25:52Z"/>    
-:)
