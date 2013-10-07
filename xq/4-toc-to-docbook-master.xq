@@ -25,7 +25,10 @@ db:add($C:WIKI-DB,
       <info>
         <title>BaseX Documentation</title>
         <subtitle>
-          <para>Version 7.7</para>
+          <para>Version {
+            C:open( $C:WIKI-DUMP-PATH || "Main%20Page.xml")//*:p/*:b
+            ! substring-after(., "BaseX ")
+          }</para>
           <para><inlinemediaobject>
             <imageobject>
               <imagedata fileref="{$C:WIKI-DUMP-IMG}basex.svg" align="center" scalefit="1" width="16cm"/>
