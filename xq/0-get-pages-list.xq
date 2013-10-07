@@ -6,7 +6,7 @@ import module namespace C = "basex-docu-conversion-config" at "config.xqm";
 let $pages := element pages {
   let $doc := fetch:text($C:BX-API
     || "action=query&amp;list=allpages&amp;aplimit=500&amp;format=xml&amp;meta=siteinfo"
-  ) ! parse-xml(.)/api/query
+  ) ! fn:parse-xml(.)/api/query
   return $doc/allpages/p/@title/data()
   ! element page {
     . ! (

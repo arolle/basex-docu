@@ -87,6 +87,7 @@ References
 TODO
 ----
 
+- docbook.xsl: alignment in table of contents of final pdf
 - syntax highlighting
 - incremental updating (i.e. only load changed articles on second run)
 - styling

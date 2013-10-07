@@ -22,9 +22,7 @@ let $req := fetch:text(
 
 (: parse html :)
 let $contents := $req/api/parse/text/text()/string()
-  ! ((# db:parser "html" #){
-    fn:parse-xml("<_>" || . ||"</_>")
-  })/node()/node()
+  ! html:parse("<_>" || . ||"</_>")/node()/node()
 
 (: check if redirect or real page :)
 return if (starts-with(($contents/*/text())[1], "REDIRECT"))
