@@ -103,6 +103,17 @@ function _:open (
 
 
 (:~
+ : finds out which version of BaseX the documentation is for
+ :
+ : @return  version number
+ :)
+declare function _:bx-version() as xs:string {
+  _:open( $_:WIKI-DUMP-PATH || "Main%20Page.xml")//*:p/*:b
+    ! substring-after(., "BaseX ")
+};
+
+
+(:~
  : open documents by name
  : for developing purpose only
  : @param   name

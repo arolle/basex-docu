@@ -26,8 +26,7 @@ db:add($C:WIKI-DB,
         <title>BaseX Documentation</title>
         <subtitle>
           <para>Version {
-            C:open( $C:WIKI-DUMP-PATH || "Main%20Page.xml")//*:p/*:b
-            ! substring-after(., "BaseX ")
+            C:bx-version()
           }</para>
           <para><inlinemediaobject>
             <imageobject>

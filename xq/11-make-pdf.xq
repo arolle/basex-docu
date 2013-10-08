@@ -14,7 +14,8 @@ let $param := ("article   title",
     $classpath := C:to-PATH($C:ABS-PATH || "fop/build", "*.jar")
       || file:path-separator() ||
       C:to-PATH($C:ABS-PATH || "fop/lib", "*.jar")
-return
+let $pdf := $C:TMP || "BaseX" || C:bx-version() ! fn:replace(.,'\.','') || ".pdf" 
+return (
   C:execute("java", (
     (: compare with ./fop/fop :)
     "-Xmx1024m",
@@ -28,7 +29,8 @@ return
     "-param", "highlight.default.language", "xml",
     "-xml", $C:EXPORT-PATH || $C:DOC-MASTER, 
     "-xsl", "docbook.xsl",
-    "-pdf", $C:TMP || $C:DOC-MASTER || ".pdf"
+    "-pdf", $pdf
   )),
 
-C:logs(static-base-uri(), ("converted master pdf to ", $C:TMP, $C:DOC-MASTER, ".pdf"))
+  C:logs(static-base-uri(), ("converted master pdf to ", $pdf))
+)
