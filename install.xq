@@ -8,17 +8,17 @@ file:create-dir($C:TMP),
 
 (: all sources and their path/name where they shall end up :)
 let $deps := (
-  map {
-    "url" := "http://sourceforge.net/projects/docbook/files/docbook-xsl-ns/1.78.1/docbook-xsl-ns-1.78.1.zip/download",
-    "name" := "docbook-xsl"
+  {
+    "url" : "http://sourceforge.net/projects/docbook/files/docbook-xsl-ns/1.78.1/docbook-xsl-ns-1.78.1.zip/download",
+    "name" : "docbook-xsl"
   },
-  map {
-    "url" := "http://archive.apache.org/dist/xmlgraphics/fop/binaries/fop-1.1-bin.zip",
-    "name" := "fop"
+  {
+    "url" : "http://archive.apache.org/dist/xmlgraphics/fop/binaries/fop-1.1-bin.zip",
+    "name" : "fop"
   },
-  map { (: original url: http://www.dbdoclet.org/archives/herold-6_1_0-188.zip :)
-    "url" := "http://files.basex.org/etc/herold-6.1.0-188.zip",
-    "name" := "herold"
+  { (: original url: http://www.dbdoclet.org/archives/herold-6_1_0-188.zip :)
+    "url" : "http://files.basex.org/etc/herold-6.1.0-188.zip",
+    "name" : "herold"
   }
 )
 
