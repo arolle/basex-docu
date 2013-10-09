@@ -17,4 +17,7 @@
   
   <run file="xq/export.bxs" />
   <run file="xq/11-make-pdf.xq" />
+
+  <!-- finally some analysis -->
+  <run file="xq/list-missing-articles.xq" />
 </commands>

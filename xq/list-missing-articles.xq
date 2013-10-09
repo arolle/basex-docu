@@ -8,8 +8,12 @@ import module namespace C = "basex-docu-conversion-config" at "config.xqm";
 
 declare option output:separator "\n";
 
+'',
+'Articles missing in PDF',
+'=======================',
+
 let $in-output := C:open($C:DOC-MASTER)//*:include/@href/data()
   ! replace(., "%25", "%")
-for $x in $C:PAGES-RELEVANT
-where not($x/@docbook = $in-output)
-return $x/@title/data()
+return $C:PAGES-RELEVANT[not(@docbook = $in-output)]/@title/data(),
+
+'', ''
