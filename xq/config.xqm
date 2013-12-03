@@ -1,7 +1,7 @@
 module namespace _ = "basex-docu-conversion-config";
 
 (:~ absolute path to this project :)
-declare variable $_:ABS-PATH := (static-base-uri() ! file:dir-name(.) ! file:dir-name(.));
+declare variable $_:ABS-PATH := (static-base-uri() ! file:parent(.) ! file:parent(.));
 
 (: PATHS on HDD :)
 
