@@ -43,6 +43,9 @@ db:add($C:WIKI-DB,
             <email>basex-talk@mailman.uni-konstanz.de</email>
         </author>
         <legalnotice><para>Content is available under <link xlink:href="http://creativecommons.org/licenses/by-sa/3.0/">Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)</link>.</para></legalnotice>
+        <pubdate>{
+          substring-before(current-date() ! string(.), '+')
+        }</pubdate>
       </info>
       {
         (: transform all includes :)
