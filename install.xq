@@ -1,6 +1,8 @@
 (:~
  : Installs all dependencies
  : loads and extracts zip files
+ : @author arolle
+ : @see http://github.com/arolle/basex-docu
  :)
 import module namespace C = "basex-docu-conversion-config" at "xq/config.xqm";
 

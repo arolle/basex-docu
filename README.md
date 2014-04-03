@@ -1,23 +1,22 @@
 Convert BaseX Wiki to DocBook and PDF
 =====================================
 
-Install the dependencies via `basex install.xq`. Adjust varables in
-`xq/config.xqm` if desired, e.g. change temp directory.
+An install script puts the required dependencies in place. Execute
+`basex install.xq` to download and extract what is necessary.
+For customization consult `xq/config.xqm` if desired. E.g. the temporary
+directory or the table of contents shall be changed.
 
-Then run `basex makedocu.bxs` to convert BaseX documentation from web to DocBook and
-PDF.
-The conversion is done in 12 steps, as described in `meta/wiki2doc.pdf`. A
-wiki article named `Table of Contents` defines the ordering of the pages
-(see `xq/config.xqm`).
-Only articles linked from this table of contents will be included in the
-final PDF/DocBook.
+Conversion of BaseX documentation from the wiki on the web to a DocBook and PDF
+document is invoked by `basex makedocu.bxs`.
 
+The conversion is done in 12 steps, as described in `meta/wiki2doc.pdf`.
+Only articles linked from `Table of Contents` named page appear in the
+output in the same order (see `xq/config.xqm`).
 
-If the software was run once, another run will update files. That is, images
-are kept and content of wiki pages gets replaced from web. 
+If the software was run once, another invocation will update all files. Images
+are kept and contents of pages update. 
 
-For the external Java processes there is memory of 1024 MB assigned. Change these
-(if necessary) in step 5 and 11.
+Step 5 and 11 make use of external programs. Those have 1024 MB memory assigned.
 
 
 Files in Project
@@ -32,7 +31,7 @@ Files in Project
     ├── docbook.xsl                         includes styles, some customisations
     ├── fop                                 see dependencies
     ├── herold                              see dependencies
-    ├── install.xq                          installs dependencies
+    ├── install.xq                          installs all dependencies
     ├── makedocu.bxs                        basex command script to generate the documentation
     ├── meta
     │   ├── master-docbook.xml.pdf          pdf sample
@@ -64,7 +63,6 @@ Dependencies
 All dependencies (except BaseX) can be installed using the XQuery install
 script `install.xq`.
 
-* BaseX with command `basex` in `$PATH`
 * Step 5: [herold](http://www.dbdoclet.org/) is used for conversion of xhtml to XML DocBook,
 	e.g. http://www.dbdoclet.org/archives/herold-src-6.1.0-188.zip ;
   tied to 5-conv2docbooks.xq
@@ -89,7 +87,7 @@ TODO
 
 - docbook.xsl: alignment in table of contents of final pdf
 - syntax highlighting
-- incremental updating (i.e. only load changed articles on second run)
+- incremental updating using metadata (i.e. only load changed articles on second run)
 - styling
   - add some colour
 - break longlonglong lines 

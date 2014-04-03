@@ -1,6 +1,7 @@
 data
 .basex*
 basex-wiki.log
+makedocu.bxs
 docbook-xsl
 herold
 fop
