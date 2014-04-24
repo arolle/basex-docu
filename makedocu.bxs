@@ -1,16 +1,16 @@
 <commands>
-  <run file="xq/0-get-pages-list.xq" />
-  <run file="xq/1-get-wiki-pages.xq" />
-  <run file="xq/2-modify-page-content.xq" />
-  <run file="xq/3-extract-images.xq" />
-  <run file="xq/4-toc-to-docbook-master.xq" />
+  <run file="xq/00-get-pages-list.xq" />
+  <run file="xq/01-get-wiki-pages.xq" />
+  <run file="xq/02-modify-page-content.xq" />
+  <run file="xq/03-extract-images.xq" />
+  <run file="xq/04-toc-to-docbook-master.xq" />
   <run file="xq/export.bxs" />
   
-  <run file="xq/5-conv2docbooks.xq" />
-  <run file="xq/6-db-add-docbook.xq" />
-  <run file="xq/7-care-for-link-ids.xq" />
-  <run file="xq/8-care-for-linkends.xq" />
-  <run file="xq/9-modify-docbooks.xq" />
+  <run file="xq/05-conv2docbooks.xq" />
+  <run file="xq/06-db-add-docbook.xq" />
+  <run file="xq/07-care-for-link-ids.xq" />
+  <run file="xq/08-care-for-linkends.xq" />
+  <run file="xq/09-modify-docbooks.xq" />
   
   <!-- step 10: not necessary for pdf generation -->
   <run file="xq/10-generate-all-in-one-docbook.xq" />
