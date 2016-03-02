@@ -1,11 +1,4 @@
-data
 .basex*
-basex-wiki.log
-makedocu.bxs
-docbook-xsl
-herold
-fop
-meta/master-docbook.xml.pdf
-xslthl
-docbooks
+data
+lib
 tmp

@@ -2,7 +2,6 @@
  : returns all dead links, with its containing page
  :)
 import module namespace C = "basex-docu-conversion-config" at "config.xqm";
-declare option output:separator "\n";
 
 (: list all anchors without an aim :)
 let $linkends :=

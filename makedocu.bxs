@@ -1,20 +1,21 @@
 <commands>
-  <run file="xq/00-get-pages-list.xq" />
-  <run file="xq/01-get-wiki-pages.xq" />
-  <run file="xq/02-modify-page-content.xq" />
-  <run file="xq/03-extract-images.xq" />
-  <run file="xq/04-toc-to-docbook-master.xq" />
-  <run file="xq/export.bxs" />
+  <run file="src/00-get-pages-list.xq" />
+  <run file="src/01-get-wiki-pages.xq" />
+  <run file="src/02-modify-page-content.xq" />
+  <run file="src/03-extract-images.xq" />
+  <run file="src/04-toc-to-docbook-master.xq" />
+  <run file="src/99-export.xq" />
   
-  <run file="xq/05-conv2docbooks.xq" />
-  <run file="xq/06-db-add-docbook.xq" />
-  <run file="xq/07-care-for-link-ids.xq" />
-  <run file="xq/08-care-for-linkends.xq" />
-  <run file="xq/09-modify-docbooks.xq" />
+  <run file="src/05-conv2docbooks.xq" />
+  <run file="src/06-db-add-docbook.xq" />
+  <run file="src/07-care-for-link-ids.xq" />
+  <run file="src/08-care-for-linkends.xq" />
+  <run file="src/09-modify-docbooks.xq" />
   
-  <!-- step 10: not necessary for pdf generation -->
-  <run file="xq/10-generate-all-in-one-docbook.xq" />
+  <!-- step 10: not necessary for pdf generation
+  <run file="src/10-generate-all-in-one-docbook.xq" />
+  -->
   
-  <run file="xq/export.bxs" />
-  <run file="xq/11-make-pdf.xq" />
+  <run file="src/99-export.xq" />
+  <run file="src/11-make-pdf.xq" />
 </commands>
