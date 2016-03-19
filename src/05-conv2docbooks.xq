@@ -14,7 +14,7 @@ return (
   (: compare name w/o extension :)
   where substring($name, 1, string-length($name) - 4) = $C:PAGES-RELEVANT/@title-enc
   return C:execute("java", (
-    (: compare with herold/bin/herold :)
+    (: compare with lib/bin/herold :)
     "-Xmx1024m",
     "-Dconsole.lineWidth=42",
     "-Dherold.home=" || $C:ABS-PATH || "lib/herold",

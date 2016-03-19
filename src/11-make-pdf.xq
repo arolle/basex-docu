@@ -19,7 +19,7 @@ let $classpath := C:to-classpath($C:ABS-PATH || "lib/fop/build", "*.jar") ||
 let $pdf := $C:TMP || "BaseX" || C:bx-version() ! fn:replace(.,'\.','') || ".pdf" 
 return (
   C:execute("java", (
-    (: compare with ./fop/fop :)
+    (: compare with lib/fop :)
     "-Xmx2g",
     "-Djava.awt.headless=true",
     "-classpath", $classpath,
@@ -29,7 +29,7 @@ return (
     "-param", "generate.toc", string-join($param, out:nl()),
     "-param", "highlight.source", "1",
     "-param", "highlight.default.language", "xml",
-    "-xml", $C:EXPORT-PATH || $C:DOC-MASTER, 
+    "-xml", $C:EXPORT-PATH || $C:DOC-MASTER,
     "-xsl", "src/docbook.xsl",
     "-pdf", $pdf
   )),
