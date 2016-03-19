@@ -7,7 +7,7 @@
   xmlns:fo="http://www.w3.org/1999/XSL/Format"
   version='1.0'>
 <!-- load docbook stylesheet -->
-<xsl:include href="docbook-xsl/fo/docbook.xsl"/>
+<xsl:include href="../lib/docbook/fo/docbook.xsl"/>
 <!-- make links red -->
 <xsl:attribute-set name="xref.properties">
   <xsl:attribute name="color">#DD1F26</xsl:attribute>

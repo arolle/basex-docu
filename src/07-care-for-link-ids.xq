@@ -12,22 +12,15 @@ declare namespace xlink = "http://www.w3.org/1999/xlink";
 let $dup-ids := (
   (: get all duplicate ids of all docbook documents :)
   for $x in C:open($C:DOCBOOKS-PATH)//@xml:id
-  let $g := $x/data()
-  group by $g
-(:  where count($x) >= 1:)
-(:  order by count($x) descending:)
-  return <e>{attribute count {count($x)}, $x[1]/data()}</e>
+  group by $g := $x/data()
+  return <e count="{ count($x) }">{ $x[1]/data() }</e>
 )[@count > 1]
 
 for $page in $C:PAGES-RELEVANT
-let $c := C:open($page/@docbook)
-return 
-  (: preset pagetitle to duplicate ids and links :)
-  for $id in $c//(@xml:id , @*:linkend)[ . = $dup-ids ]
-  return
-    replace value of node $id with ($page/@title-slug || $id/data())
-,
-
+(: preset pagetitle to duplicate ids and links :)
+let $doc := C:open($page/@docbook)
+for $id in $doc//(@xml:id , @*:linkend)[ . = $dup-ids]
+return replace value of node $id with $page/@title-slug || $id,
 
 (: replace redirection links by real link :)
 for $red in C:open($C:LS-PAGES)//page[string-length(@redirect) > 0]/@title-slug
@@ -36,14 +29,9 @@ for $link in C:open($C:DOCBOOKS-PATH)//*:link[
   starts-with(@xlink:href, "/wiki/" || $red || "#")
   or @xlink:href = "/wiki/" || $red (: refers to page :)
 ]
-return
-  replace value of node $link/@xlink:href
-  with
-    "/wiki/"
-    || $red/parent::node()/@redirect
-    || substring-after($link/@xlink:href, "#"),
+return replace value of node $link/@xlink:href with
+  "/wiki/" || $red/parent::node()/@redirect || substring-after($link/@xlink:href, "#"),
 
-
-db:output(
-  C:logs(static-base-uri(), ("unified link-ids in relevant docbooks in db ", $C:WIKI-DB, " at path ", $C:DOCBOOKS-PATH))
+C:log(static-base-uri(),
+  "unified link-ids in relevant docbooks in db " || $C:WIKI-DB || " at path " || $C:DOCBOOKS-PATH
 )

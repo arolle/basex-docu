@@ -6,8 +6,6 @@
  :)
 import module namespace C = "basex-docu-conversion-config" at "config.xqm";
 
-declare option output:separator "\n";
-
 '',
 'Articles missing in PDF',
 '=======================',

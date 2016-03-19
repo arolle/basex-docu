@@ -2,7 +2,7 @@
 
 An install script puts the required dependencies in place. Execute
 `basex install.xq` to download and extract what is necessary.
-For customization consult `xq/config.xqm` if desired. E.g. the temporary
+For customization consult `src/config.xqm` if desired. E.g. the temporary
 directory or the table of contents shall be changed.
 
 Conversion of BaseX documentation from the wiki on the web to a DocBook and PDF
@@ -10,7 +10,7 @@ document is invoked by `basex makedocu.bxs`.
 
 The conversion is done in 12 steps, as described in `meta/wiki2doc.pdf`.
 Only articles linked from `Table of Contents` named page appear in the
-output in the same order (see `xq/config.xqm`).
+output in the same order (see `src/config.xqm`).
 
 If the software was run once, another invocation will update all files. Images
 are kept and contents of pages update.
